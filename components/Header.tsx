@@ -80,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ socials, language, setLanguage, transla
              <Terminal size={20} className="text-accent" />
           </div>
           <div className="flex flex-col">
-            <span className="font-display font-bold text-lg leading-none text-white tracking-tight">Fabio.dev</span>
+            <span className="font-display font-bold text-lg leading-none text-white tracking-tight">Dev Fabio Cruvinel</span>
           </div>
         </a>
 
