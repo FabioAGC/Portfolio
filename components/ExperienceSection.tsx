@@ -19,8 +19,8 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experience, title
 
         <div className="relative border-l border-slate-800 ml-4 md:ml-6 space-y-12">
           {experience.map((job, index) => (
-            <div key={job.id} className="relative pl-8 md:pl-12">
-              <RevealOnScroll delay={index * 100}>
+            <RevealOnScroll key={job.id} delay={index * 100}>
+              <div className="relative pl-8 md:pl-12">
                 {/* Timeline Dot */}
                 <div className="absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-sky-500 shadow-[0_0_8px_rgba(14,165,233,0.6)]"></div>
                 
@@ -34,8 +34,8 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experience, title
                 <p className="text-slate-400 leading-relaxed font-light text-base md:text-lg">
                   {job.description}
                 </p>
-              </RevealOnScroll>
-            </div>
+              </div>
+            </RevealOnScroll>
           ))}
         </div>
       </div>
