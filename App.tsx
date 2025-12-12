@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Header from './components/Header';
 import BioSection from './components/BioSection';
 import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
@@ -71,18 +72,18 @@ const INITIAL_PROFILE: UserProfile = {
 const SAMPLE_PROJECTS: Project[] = [
   {
     id: 1,
-    title: "Speech.AI",
+    title: "GymTrack",
     description: "A comprehensive analytics dashboard for online retailers featuring real-time data visualization using D3.js and Recharts.",
     imageUrl: "https://picsum.photos/seed/101/600/400",
-    tags: ["React", "TypeScript", "D3.js", "Tailwind"],
+    tags: ["Next.js", "TypeScript", "SQLite", "Tailwind","Jenkins","Jest"],
     link: "https://example.com"
   },
   {
     id: 2,
-    title: "GymTrack",
+    title: "Speech.AI",
     description: "An intelligent writing assistant powered by Large Language Models to help copywriters generate creative content efficiently.",
     imageUrl: "https://picsum.photos/seed/202/600/400",
-    tags: ["Next.js", "OpenAI API", "Node.js"],
+    tags: ["Nest.js", "OpenAI API", "N8N","Postgres","React","Vite","Prisma"],
     link: "https://example.com"
   },
   {
@@ -90,7 +91,7 @@ const SAMPLE_PROJECTS: Project[] = [
     title: "EcoSense",
     description: "A collaborative task management tool with real-time updates, drag-and-drop interfaces, and team workspace organization.",
     imageUrl: "https://picsum.photos/seed/305/600/400",
-    tags: ["React", "Firebase", "Redux"],
+    tags: ["React", "Python", "TensorFlow"],
     link: "https://example.com"
   },
   {
@@ -114,36 +115,39 @@ const App: React.FC = () => {
     }
   }, []);
 
-  const handleUpdateBio = (newBio: string) => {
-    setProfile(prev => ({ ...prev, bio: newBio }));
-    localStorage.setItem('user_bio', newBio);
-  };
-
   return (
     <div className="min-h-screen bg-transparent text-slate-200 selection:bg-slate-700 selection:text-white relative">
       <Background />
+      <Header socials={profile.socials} />
       
       <main className="relative z-10">
-        <RevealOnScroll>
-          <BioSection 
-            name={profile.name}
-            title={profile.title}
-            bio={profile.bio}
-            avatarUrl={profile.avatarUrl}
-            socials={profile.socials}
-            onUpdateBio={handleUpdateBio}
-          />
-        </RevealOnScroll>
+        <div id="home" className="scroll-mt-24">
+          <RevealOnScroll>
+            <BioSection 
+              name={profile.name}
+              title={profile.title}
+              bio={profile.bio}
+              avatarUrl={profile.avatarUrl}
+              socials={profile.socials}
+            />
+          </RevealOnScroll>
+        </div>
 
-        <RevealOnScroll>
-          <AboutSection about={profile.about} socials={profile.socials} />
-        </RevealOnScroll>
+        <div id="about" className="scroll-mt-24">
+          <RevealOnScroll>
+            <AboutSection about={profile.about} socials={profile.socials} />
+          </RevealOnScroll>
+        </div>
 
-        <SkillsSection skills={profile.skills} />
+        <div id="tech" className="scroll-mt-24">
+          <SkillsSection skills={profile.skills} />
+        </div>
 
-        <ExperienceSection experience={profile.experience} />
+        <div id="experience" className="scroll-mt-24">
+          <ExperienceSection experience={profile.experience} />
+        </div>
 
-        <section className="py-20 px-4 sm:px-6">
+        <section id="projects" className="py-20 px-4 sm:px-6 scroll-mt-20">
           <div className="max-w-6xl mx-auto">
             <RevealOnScroll>
               <div className="flex flex-col md:flex-row justify-between items-end mb-12">

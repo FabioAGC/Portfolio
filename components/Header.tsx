@@ -1,5 +1,5 @@
-import React from 'react';
-import { Github, Linkedin, Mail, Terminal } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Github, Linkedin, Mail, Terminal, Menu, X } from 'lucide-react';
 import { SocialLinks } from '../types';
 
 interface HeaderProps {
@@ -7,41 +7,158 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ socials }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+      
+      // Determine active section based on scroll position
+      const sections = ['home', 'about', 'tech', 'experience', 'projects'];
+      
+      // Find the current section
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          // Check if section top is near the viewport top (allowing for header offset)
+          if (rect.top >= -100 && rect.top <= 200) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  const navLinks = [
+    { name: 'Home', href: '#home', label: 'Home' },
+    { name: 'About', href: '#about', label: 'About' },
+    { name: 'Tech Stack', href: '#tech', label: 'Tech Stack' },
+    { name: 'Experience', href: '#experience', label: 'Experience' },
+    { name: 'Projects', href: '#projects', label: 'Projects' },
+  ];
+
   return (
-    <header className="sticky top-0 z-50 bg-primary/80 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div className="flex items-center space-x-2 text-accent">
-          <Terminal size={24} />
-          <span className="font-bold text-xl tracking-tight text-white">DevFolio</span>
-        </div>
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-primary/90 backdrop-blur-md border-b border-white/5 py-3' 
+          : 'bg-transparent py-5'
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
         
-        <nav className="flex items-center space-x-6">
-          <a 
-            href={socials.github} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-slate-400 transition-all duration-300 transform hover:scale-110 hover:text-accent"
-            aria-label="GitHub"
-          >
-            <Github size={20} />
-          </a>
-          <a 
-            href={socials.linkedin} 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-slate-400 transition-all duration-300 transform hover:scale-110 hover:text-accent"
-            aria-label="LinkedIn"
-          >
-            <Linkedin size={20} />
-          </a>
-          <a 
-            href={`mailto:${socials.email}`}
-            className="text-slate-400 transition-all duration-300 transform hover:scale-110 hover:text-accent"
-            aria-label="Email"
-          >
-            <Mail size={20} />
-          </a>
+        {/* Logo Area */}
+        <a 
+          href="#home" 
+          className="flex items-center space-x-2 group"
+          onClick={(e) => handleNavClick(e, '#home')}
+        >
+          <div className="p-2 rounded-lg bg-slate-900 border border-slate-800 group-hover:border-accent/50 transition-colors duration-300">
+             <Terminal size={20} className="text-accent" />
+          </div>
+          <div className="flex flex-col">
+            <span className="font-display font-bold text-lg leading-none text-white tracking-tight">Fabio.dev</span>
+          </div>
+        </a>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center space-x-1">
+          <div className="flex items-center bg-slate-900/50 rounded-full border border-white/5 p-1 backdrop-blur-sm">
+            {navLinks.map((link) => (
+              <a 
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`
+                  relative px-4 py-1.5 rounded-full text-sm font-mono transition-all duration-300 cursor-pointer
+                  ${activeSection === link.href.substring(1) 
+                    ? 'text-white bg-white/10 shadow-sm' 
+                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  }
+                `}
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
         </nav>
+
+        {/* Desktop Social & Actions */}
+        <div className="hidden md:flex items-center space-x-4">
+          <div className="h-6 w-px bg-white/10 mx-2"></div>
+          <div className="flex gap-3">
+             <a 
+               href={socials.github} 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               className="text-slate-400 hover:text-white transition-colors"
+               aria-label="Github"
+             >
+               <Github size={20} />
+             </a>
+             <a 
+               href={socials.linkedin} 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               className="text-slate-400 hover:text-white transition-colors"
+               aria-label="LinkedIn"
+             >
+               <Linkedin size={20} />
+             </a>
+          </div>
+        </div>
+
+        {/* Mobile Menu Toggle */}
+        <button 
+          className="md:hidden p-2 text-slate-300 hover:text-white bg-slate-900/50 rounded-md border border-white/5"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </div>
+
+      {/* Mobile Navigation Dropdown */}
+      <div 
+        className={`md:hidden absolute top-full left-0 right-0 bg-primary/95 backdrop-blur-xl border-b border-white/10 overflow-hidden transition-all duration-300 ease-in-out ${
+          isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div className="p-4 space-y-2">
+          {navLinks.map((link) => (
+            <a 
+              key={link.name}
+              href={link.href}
+              className="block px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-mono border border-transparent hover:border-white/5 transition-all cursor-pointer"
+              onClick={(e) => handleNavClick(e, link.href)}
+            >
+              <span className="text-accent opacity-50 mr-2">&gt;</span>
+              {link.label}
+            </a>
+          ))}
+          <div className="h-px bg-white/10 my-4 mx-4"></div>
+          <div className="flex justify-center gap-6 pb-4">
+             <a href={socials.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white"><Github size={24}/></a>
+             <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white"><Linkedin size={24}/></a>
+             <a href={`mailto:${socials.email}`} className="text-slate-400 hover:text-white"><Mail size={24}/></a>
+          </div>
+        </div>
       </div>
     </header>
   );
