@@ -4,15 +4,16 @@ import RevealOnScroll from './RevealOnScroll';
 
 interface ExperienceSectionProps {
   experience: JobExperience[];
+  title: string;
 }
 
-const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experience }) => {
+const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experience, title }) => {
   return (
     <section className="py-20 px-4 sm:px-6 relative z-10">
       <div className="max-w-4xl mx-auto">
         <RevealOnScroll>
           <h2 className="text-3xl font-bold text-white mb-16 tracking-tight text-center md:text-left">
-            Experience.
+            {title}
           </h2>
         </RevealOnScroll>
 

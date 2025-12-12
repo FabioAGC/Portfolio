@@ -2,25 +2,28 @@ import React from 'react';
 import { SkillCategory } from '../types';
 import RevealOnScroll from './RevealOnScroll';
 import { 
-  BarChart, Layout, Shield, TrendingUp, Brain, Cpu, Repeat, 
-  Terminal, Code, Database, Globe
+  BarChart, Layout, Shield, TrendingUp, Brain, Cpu, Repeat, Network, Activity
 } from 'lucide-react';
 
 interface SkillsSectionProps {
   skills: SkillCategory[];
+  title: string;
 }
 
 const getSkillIcon = (skillName: string) => {
   const lower = skillName.toLowerCase();
 
   // 1. Hard Skills / Abstract Concepts - Map to Lucide Icons
-  if (lower.includes('analysis')) return <BarChart size={16} className="text-sky-400" />;
-  if (lower.includes('system design')) return <Layout size={16} className="text-pink-400" />;
-  if (lower.includes('cybersecurity')) return <Shield size={16} className="text-emerald-400" />;
+  if (lower.includes('analysis') || lower.includes('analise') || lower.includes('análise')) return <BarChart size={16} className="text-sky-400" />;
+  if (lower.includes('system design') || lower.includes('design de sistemas')) return <Layout size={16} className="text-pink-400" />;
+  if (lower.includes('cybersecurity') || lower.includes('cibersegurança')) return <Shield size={16} className="text-emerald-400" />;
   if (lower.includes('kpi')) return <TrendingUp size={16} className="text-amber-400" />;
-  if (lower.includes('ia') || lower === 'ai') return <Brain size={16} className="text-purple-400" />;
-  if (lower.includes('machine learning')) return <Cpu size={16} className="text-rose-400" />;
+  if (lower.includes('ia') || lower === 'ai' || lower.includes('inteligência artificial')) return <Brain size={16} className="text-purple-400" />;
+  if (lower.includes('machine learning') || lower.includes('aprendizado de máquina')) return <Cpu size={16} className="text-rose-400" />;
   if (lower.includes('ci/cd')) return <Repeat size={16} className="text-orange-400" />;
+  if (lower.includes('network') || lower.includes('rede')) return <Network size={16} className="text-blue-400" />;
+  if (lower.includes('hft')) return <Activity size={16} className="text-red-400" />;
+  if (lower.includes('embedded') || lower.includes('embarcados')) return <Cpu size={16} className="text-yellow-400" />;
 
   // 2. Tech Stack - Map to DevIcon URLs
   const slugMap: Record<string, string> = {
@@ -54,7 +57,9 @@ const getSkillIcon = (skillName: string) => {
     'kotlin': 'kotlin',
     'ruby': 'ruby',
     'rust': 'rust',
-    'swift': 'swift'
+    'swift': 'swift',
+    'kafka': 'apachekafka',
+    'airflow': 'apacheairflow'
   };
 
   let slug = slugMap[lower] || lower;
@@ -86,13 +91,13 @@ const getSkillIcon = (skillName: string) => {
   );
 };
 
-const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => {
+const SkillsSection: React.FC<SkillsSectionProps> = ({ skills, title }) => {
   return (
     <section className="py-20 px-4 sm:px-6 relative z-10 border-t border-white/5 bg-secondary/10">
       <div className="max-w-4xl mx-auto">
         <RevealOnScroll>
           <h2 className="text-3xl font-bold text-white mb-12 tracking-tight text-center md:text-left">
-            Tech Stack.
+            {title}
           </h2>
         </RevealOnScroll>
 

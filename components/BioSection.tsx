@@ -18,13 +18,9 @@ const BioSection: React.FC<BioSectionProps> = ({ name, title, bio, avatarUrl, so
           
           {/* Left Column: Content */}
           <div className="md:col-span-7 flex flex-col text-left order-1 md:order-1 font-display">
-             <div className="mb-4 flex items-center gap-3">
-                <span className="h-0.5 w-12 bg-accent"></span>
-                <span className="text-accent font-semibold tracking-wider uppercase text-sm font-sans">Introduction</span>
-             </div>
-
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight leading-tight">
-              Hi, I'm <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">{name}</span>
+            
+            <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight leading-tight">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">{name}</span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-400 font-light mb-8">
               {title}

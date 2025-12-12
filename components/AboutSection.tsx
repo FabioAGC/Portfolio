@@ -4,10 +4,11 @@ import { SocialLinks } from '../types';
 
 interface AboutSectionProps {
   about: string;
+  title: string;
   socials: SocialLinks;
 }
 
-const AboutSection: React.FC<AboutSectionProps> = ({ about, socials }) => {
+const AboutSection: React.FC<AboutSectionProps> = ({ about, title, socials }) => {
   const links = [
     { 
       name: 'Instagram', 
@@ -55,7 +56,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({ about, socials }) => {
           {/* About Content - Clean Typography */}
           <div className="md:col-span-7 lg:col-span-8">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-8 tracking-tight">
-              About Me.
+              {title}
             </h2>
             <div className="text-slate-400 text-lg md:text-xl leading-relaxed whitespace-pre-line space-y-6 font-light">
               {about}

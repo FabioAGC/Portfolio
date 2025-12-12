@@ -4,9 +4,18 @@ import { SocialLinks } from '../types';
 
 interface HeaderProps {
   socials: SocialLinks;
+  language: 'en' | 'pt';
+  setLanguage: (lang: 'en' | 'pt') => void;
+  translations: {
+    home: string;
+    about: string;
+    tech: string;
+    experience: string;
+    projects: string;
+  };
 }
 
-const Header: React.FC<HeaderProps> = ({ socials }) => {
+const Header: React.FC<HeaderProps> = ({ socials, language, setLanguage, translations }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -15,15 +24,12 @@ const Header: React.FC<HeaderProps> = ({ socials }) => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
       
-      // Determine active section based on scroll position
       const sections = ['home', 'about', 'tech', 'experience', 'projects'];
       
-      // Find the current section
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // Check if section top is near the viewport top (allowing for header offset)
           if (rect.top >= -100 && rect.top <= 200) {
             setActiveSection(section);
             break;
@@ -47,11 +53,11 @@ const Header: React.FC<HeaderProps> = ({ socials }) => {
   };
 
   const navLinks = [
-    { name: 'Home', href: '#home', label: 'Home' },
-    { name: 'About', href: '#about', label: 'About' },
-    { name: 'Tech Stack', href: '#tech', label: 'Tech Stack' },
-    { name: 'Experience', href: '#experience', label: 'Experience' },
-    { name: 'Projects', href: '#projects', label: 'Projects' },
+    { name: translations.home, href: '#home', label: translations.home },
+    { name: translations.about, href: '#about', label: translations.about },
+    { name: translations.tech, href: '#tech', label: translations.tech },
+    { name: translations.experience, href: '#experience', label: translations.experience },
+    { name: translations.projects, href: '#projects', label: translations.projects },
   ];
 
   return (
@@ -83,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({ socials }) => {
           <div className="flex items-center bg-slate-900/50 rounded-full border border-white/5 p-1 backdrop-blur-sm">
             {navLinks.map((link) => (
               <a 
-                key={link.name}
+                key={`${link.href}-${link.name}`} 
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
                 className={`
@@ -100,38 +106,63 @@ const Header: React.FC<HeaderProps> = ({ socials }) => {
           </div>
         </nav>
 
-        {/* Desktop Social & Actions */}
+        {/* Desktop Actions (Language Only) */}
         <div className="hidden md:flex items-center space-x-4">
-          <div className="h-6 w-px bg-white/10 mx-2"></div>
-          <div className="flex gap-3">
-             <a 
-               href={socials.github} 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               className="text-slate-400 hover:text-white transition-colors"
-               aria-label="Github"
-             >
-               <Github size={20} />
-             </a>
-             <a 
-               href={socials.linkedin} 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               className="text-slate-400 hover:text-white transition-colors"
-               aria-label="LinkedIn"
-             >
-               <Linkedin size={20} />
-             </a>
+          {/* Language Slider */}
+          <div className="flex items-center bg-slate-900/50 rounded-lg p-1 border border-white/5 relative z-50">
+            <button
+              type="button"
+              onClick={() => setLanguage('pt')}
+              className={`px-2 py-1 rounded text-xs font-bold transition-all duration-300 cursor-pointer ${
+                language === 'pt' ? 'bg-white/10 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'
+              }`}
+            >
+              PT
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage('en')}
+              className={`px-2 py-1 rounded text-xs font-bold transition-all duration-300 cursor-pointer ${
+                language === 'en' ? 'bg-white/10 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'
+              }`}
+            >
+              US
+            </button>
           </div>
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button 
-          className="md:hidden p-2 text-slate-300 hover:text-white bg-slate-900/50 rounded-md border border-white/5"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <div className="flex items-center gap-4 md:hidden">
+          {/* Mobile Language Toggle */}
+          <div className="flex items-center bg-slate-900/50 rounded-lg p-1 border border-white/5">
+            <button
+              type="button"
+              onClick={() => setLanguage('pt')}
+              className={`px-2 py-1 rounded text-xs font-bold transition-all ${
+                language === 'pt' ? 'bg-white/10 text-white' : 'text-slate-500'
+              }`}
+            >
+              PT
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage('en')}
+              className={`px-2 py-1 rounded text-xs font-bold transition-all ${
+                language === 'en' ? 'bg-white/10 text-white' : 'text-slate-500'
+              }`}
+            >
+              US
+            </button>
+          </div>
+
+          <button 
+            type="button"
+            className="p-2 text-slate-300 hover:text-white bg-slate-900/50 rounded-md border border-white/5"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation Dropdown */}
@@ -143,7 +174,7 @@ const Header: React.FC<HeaderProps> = ({ socials }) => {
         <div className="p-4 space-y-2">
           {navLinks.map((link) => (
             <a 
-              key={link.name}
+              key={link.href}
               href={link.href}
               className="block px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-mono border border-transparent hover:border-white/5 transition-all cursor-pointer"
               onClick={(e) => handleNavClick(e, link.href)}
