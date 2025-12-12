@@ -2,7 +2,8 @@ import React from 'react';
 import { SkillCategory } from '../types';
 import RevealOnScroll from './RevealOnScroll';
 import { 
-  BarChart, Layout, Shield, TrendingUp, Brain, Cpu, Repeat, Network, Activity
+  BarChart, Layout, Shield, TrendingUp, Brain, Cpu, Repeat, Network, Activity,
+  Lightbulb, Zap, Users, MessageCircle
 } from 'lucide-react';
 
 interface SkillsSectionProps {
@@ -24,6 +25,12 @@ const getSkillIcon = (skillName: string) => {
   if (lower.includes('network') || lower.includes('rede')) return <Network size={16} className="text-blue-400" />;
   if (lower.includes('hft')) return <Activity size={16} className="text-red-400" />;
   if (lower.includes('embedded') || lower.includes('embarcados')) return <Cpu size={16} className="text-yellow-400" />;
+
+  // Soft Skills
+  if (lower.includes('problem') || lower.includes('problema')) return <Lightbulb size={16} className="text-yellow-400" />;
+  if (lower.includes('learner') || lower.includes('aprendo') || lower.includes('rápido')) return <Zap size={16} className="text-amber-400" />;
+  if (lower.includes('team') || lower.includes('equipe')) return <Users size={16} className="text-indigo-400" />;
+  if (lower.includes('sociable') || lower.includes('amigavel') || lower.includes('communication') || lower.includes('comunicação')) return <MessageCircle size={16} className="text-green-400" />;
 
   // 2. Tech Stack - Map to DevIcon URLs
   const slugMap: Record<string, string> = {

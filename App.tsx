@@ -30,12 +30,8 @@ const DATA_EN = {
   profile: {
     name: "Fabio Cruvinel",
     title: "Junior Software Engineer",
-    bio: "With my knowledge in modern web technologies i strive to make the best and most optimal programs in my capacity , always.",
-    about: `Hello! I'm Fabio, a passionate software engineer with over 5 years of experience in building scalable web applications. My journey began when I tinkered with my first HTML page in high school, and I've been hooked ever since.
-
-    I specialize in the JavaScript ecosystem, particularly React and Node.js. I love solving complex problems and turning abstract ideas into functional, user-friendly products. Whether it's optimizing frontend performance, designing intuitive UIs, or architecting robust backend systems, I approach every challenge with curiosity and dedication.
-
-    When I'm not coding, you can usually find me exploring new coffee shops, hiking up mountains to clear my head, or diving deep into the latest tech trends. I believe in continuous learning and often contribute to open-source projects to give back to the community that taught me so much.`,
+    bio: "With my knowledge of emerging technologies and efficient systems, I strive to create the best and most optimized programs within my capabilities, always.",
+    about: "I hold a Bachelor's degree in Software Engineering from the National Institute of Telecommunications (INATEL), and I have hands-on experience with technologies such as 5G, networking, automation, AI, and machine learning. I've always been deeply interested in technology, and I'm currently focusing on learning low-level languages, high-frequency trading systems, and embedded programming.\n\nI’m expected to graduate in 2026, and afterward, I plan to pursue a postgraduate degree in the same field to further specialize. At the moment, I’m looking for Junior or Intern opportunities in my area of expertise so i can hone mi abilities and further expand my knowledge in real scenarios.\n\nWhen I'm not at college, you’ll probably find me gaming — a lifelong passion of mine — or reading a book, since I’ve always been fascinated by classic literature (I even considered studying philosophy at one point!).",
     avatarUrl: SHARED_AVATAR,
     socials: SHARED_SOCIALS,
     skills: [
@@ -57,11 +53,11 @@ const DATA_EN = {
       },
       {
         category: "Hard Skills",
-        items: ["Data analysis", "System Design","Network Configuration" , "Cybersecurity", "KPIs" ,"IA", "Machine Learning"]
+        items: ["Data analysis", "System Design", "Network Configuration" , "Cybersecurity", "KPIs" ,"IA", "Machine Learning"]
       },
       {
         category: "Soft Skills",
-        items: ["Communication", "Problem Solving", "Adaptability", "Teamwork"]
+        items: ["Problem Solving", "Quick Learner","Sociable" , "Good at Teamwork"]
       },
     ],
     experience: [
@@ -85,7 +81,7 @@ const DATA_EN = {
     {
       id: 1,
       title: "GymTrack",
-      description: "A comprehensive analytics dashboard for online retailers featuring real-time data visualization using D3.js and Recharts.",
+      description: "A platform for building and recommending gym workouts, featuring progress dashboards and AI-powered recommendations for personalized training routines for each member.",
       imageUrl: "https://picsum.photos/seed/101/600/400",
       tags: ["Next.js", "TypeScript", "SQLite", "Tailwind","Jenkins","Jest"],
       link: "https://example.com"
@@ -93,7 +89,7 @@ const DATA_EN = {
     {
       id: 2,
       title: "Speech.AI",
-      description: "An intelligent writing assistant powered by Large Language Models to help copywriters generate creative content efficiently.",
+      description: "An intelligent speech assistance system designed to help doctors and patients with pronunciation difficulties through personalized exercises and AI-based speech analysis.",
       imageUrl: "https://picsum.photos/seed/202/600/400",
       tags: ["Nest.js", "OpenAI API", "N8N","Postgres","React","Vite","Prisma"],
       link: "https://example.com"
@@ -101,7 +97,7 @@ const DATA_EN = {
     {
       id: 3,
       title: "EcoSense",
-      description: "A collaborative task management tool with real-time updates, drag-and-drop interfaces, and team workspace organization.",
+      description: "EcoSense is a system that monitors all light and water sensors in smart homes and analyzes consumption using AI to ensure everything is operating correctly.",
       imageUrl: "https://picsum.photos/seed/305/600/400",
       tags: ["React", "Python", "TensorFlow"],
       link: "https://example.com"
@@ -109,7 +105,7 @@ const DATA_EN = {
     {
       id: 4,
       title: "Inatel Rewards",
-      description: "A collaborative task management tool with real-time updates, drag-and-drop interfaces, and team workspace organization.",
+      description:"An app designed for Inatel students to redeem prizes at the cafeteria and library based on their grades and attendance in classes and lectures.",
       imageUrl: "https://picsum.photos/seed/305/600/400",
       tags: ["FLutter", "Firebase"],
       link: "https://example.com"
@@ -139,12 +135,12 @@ const DATA_PT = {
   profile: {
     name: "Fabio Cruvinel",
     title: "Engenheiro de Software Júnior",
-    bio: "Com meu conhecimento em tecnologias web modernas, esforço-me para criar os melhores e mais otimizados programas dentro da minha capacidade, sempre.",
-    about: `Olá! Sou o Fabio, um engenheiro de software apaixonado com mais de 5 anos de experiência na construção de aplicações web escaláveis. Minha jornada começou quando criei minha primeira página HTML no ensino médio, e desde então não parei mais.
+    bio: "Com meu conhecimento em tecnologias emergentes e sistemas eficientes , eu me esforço para criar os melhores e mais otimizados programas dentro da minha capacidade, sempre.",
+    about: `Sou bacharel em Engenharia de Software pelo Instituto Nacional de Telecomunicações (INATEL), e possuo Prática em tecnologias como 5G , redes , automação , IA e machine learning . Sempre fui muito interressado em tecnologia e atualmente estou focado em aprender Linguagens de baixo nivel , HFT e embarcados. 
 
-    Especializo-me no ecossistema JavaScript, particularmente React e Node.js. Adoro resolver problemas complexos e transformar ideias abstratas em produtos funcionais e amigáveis ao usuário. Seja otimizando o desempenho do frontend, projetando interfaces intuitivas ou arquitetando sistemas backend robustos, encaro cada desafio com curiosidade e dedicação.
+tenho previsão de formar em 2026 e após isso penso em buscar uma pós graduação na mesma aréa a fim de me tornar um especialista .Atualmente estou procurando oportunidades na aréa .
 
-    Quando não estou programando, você geralmente me encontra explorando novas cafeterias, fazendo trilhas para espairecer ou mergulhando nas últimas tendências tecnológicas. Acredito no aprendizado contínuo e frequentemente contribuo para projetos open-source para retribuir à comunidade que me ensinou tanto.`,
+quando não estou na faculdade , provavelmente eu me encontro jogando , já que essa sempre foi uma paixão minha , ou então estou lendo algum livro , pois os classicos da literatura sempre me interressaram (já ate pensei em cursar filosfia)`,
     avatarUrl: SHARED_AVATAR,
     socials: SHARED_SOCIALS,
     skills: [
@@ -166,11 +162,11 @@ const DATA_PT = {
       },
       {
         category: "Competências Técnicas",
-        items: ["Análise de Dados", "Design de Sistemas", "Configuração de Rede", "Cibersegurança", "KPIs", "IA", "Machine Learning"]
+        items: ["Análise de Dados", "Design de Sistemas", "Configuração de Redes", "Cibersegurança", "KPIs", "IA", "Machine Learning"]
       },
       {
         category: "Competências Comportamentais",
-        items: ["Comunicação", "Resolução de Problemas", "Adaptabilidade", "Trabalho em Equipe"]
+        items: ["Resolução de Problemas", "Aprendo Rápido", "Amigavel" , "Bom em Equipes"]
       },
     ],
     experience: [
@@ -179,7 +175,7 @@ const DATA_PT = {
         role: "Pesquisador de Cibersegurança",
         company: "INATEL - CxSC Telecom Lab",
         period: "2023 - 2024",
-        description: "Pesquisei vulnerabilidades em bancos de dados relacionais e não relacionais em aplicações web (principalmente PHP). Estudei ataques como SQL Injection em ambiente Docker com Kali Linux"
+        description: "Pesquisei vulnerabilidades em bancos de dados relacionais e não relacionais em aplicações web (principalmente PHP). Estudei principalmente ataques como SQL Injection e formas de como impedi-los em ambiente Dockertizados com sistema Kali Linux"
       },
       {
         id: 2,
@@ -194,7 +190,7 @@ const DATA_PT = {
     {
       id: 1,
       title: "GymTrack",
-      description: "Um dashboard analítico completo para varejistas online com visualização de dados em tempo real usando D3.js e Recharts.",
+      description: "Plataforma de construção e recomendação de treinos de academia , com dashboards de progresso e IA para recomendação de séries para cada membro.",
       imageUrl: "https://picsum.photos/seed/101/600/400",
       tags: ["Next.js", "TypeScript", "SQLite", "Tailwind","Jenkins","Jest"],
       link: "https://example.com"
@@ -202,7 +198,7 @@ const DATA_PT = {
     {
       id: 2,
       title: "Speech.AI",
-      description: "Um assistente de escrita inteligente alimentado por LLMs para ajudar redatores a gerar conteúdo criativo de forma eficiente.",
+      description: "Sistema inteligente de assistência à fala desenvolvido para auxiliar medicos e pacientes com dificuldades de pronúncia através de exercícios personalizados e análise de fala com IA..",
       imageUrl: "https://picsum.photos/seed/202/600/400",
       tags: ["Nest.js", "OpenAI API", "N8N","Postgres","React","Vite","Prisma"],
       link: "https://example.com"
@@ -210,7 +206,7 @@ const DATA_PT = {
     {
       id: 3,
       title: "EcoSense",
-      description: "Uma ferramenta colaborativa de gestão de tarefas com atualizações em tempo real, interfaces drag-and-drop e organização de equipes.",
+      description: "A ecosense é um sistema que ajuda a visualizar todos os sensores de luz e agua de casas smart e analisa o consumo para saber se esta tudos nos conformes usando IA",
       imageUrl: "https://picsum.photos/seed/305/600/400",
       tags: ["React", "Python", "TensorFlow"],
       link: "https://example.com"
@@ -218,7 +214,7 @@ const DATA_PT = {
     {
       id: 4,
       title: "Inatel Rewards",
-      description: "Uma ferramenta colaborativa de gestão de tarefas com atualizações em tempo real, interfaces drag-and-drop e organização de equipes.",
+      description: "É um aplicativo feito para os estudantes do inatel poderem resgatar premios na cantina e na biblioteca baseado nas notas e frequencia em aulas e palestras.",
       imageUrl: "https://picsum.photos/seed/305/600/400",
       tags: ["FLutter", "Firebase"],
       link: "https://example.com"
@@ -311,7 +307,7 @@ const App: React.FC = () => {
         </div>
 
         <section id="projects" className="py-20 px-4 sm:px-6 scroll-mt-20">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <RevealOnScroll>
               <div className="flex flex-col md:flex-row justify-between items-end mb-12">
                 <div>
@@ -324,7 +320,8 @@ const App: React.FC = () => {
               </div>
             </RevealOnScroll>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Changed from lg:grid-cols-3 to md:grid-cols-2 for much larger cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {projects.map((project, index) => (
                 <RevealOnScroll key={project.id} delay={index * 150}>
                   <ProjectCard project={project} />
