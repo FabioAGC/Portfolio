@@ -25,6 +25,14 @@ const SHARED_SOCIALS = {
 
 const SHARED_AVATAR = "https://drive.google.com/thumbnail?id=1rRG2PLLmNNBcm30P_CT8zBtD2joXsanp&sz=w1000";
 
+// Project Image Direct Links
+const PROJECT_IMGS = {
+  gymtrack: "https://drive.google.com/thumbnail?id=1d-BLyU4MZfSLyJQr9Ej6_CYnfYt8ATp1&sz=w1000",
+  speechai: "https://drive.google.com/thumbnail?id=1PW90M8y_mMfsi8sds9KUciVcnYxcd9tG&sz=w1000",
+  inatel_rewards: "https://drive.google.com/thumbnail?id=1CSUHmjmLTJ6SAj9l9mNcsdz9oH6Lhk9R&sz=w1000",
+  ecosense: "https://drive.google.com/thumbnail?id=1VZs0_Zuubbm6Hu7PwYeMns8ppLBSsQBq&sz=w1000"
+};
+
 // --- ENGLISH CONTENT ---
 const DATA_EN = {
   profile: {
@@ -82,33 +90,33 @@ const DATA_EN = {
       id: 1,
       title: "GymTrack",
       description: "A platform for building and recommending gym workouts, featuring progress dashboards and AI-powered recommendations for personalized training routines for each member.",
-      imageUrl: "https://picsum.photos/seed/101/600/400",
+      imageUrl: PROJECT_IMGS.gymtrack,
       tags: ["Next.js", "TypeScript", "SQLite", "Tailwind","Jenkins","Jest"],
-      link: "https://example.com"
+      link: "https://github.com/FABIOAGC"
     },
     {
       id: 2,
       title: "Speech.AI",
       description: "An intelligent speech assistance system designed to help doctors and patients with pronunciation difficulties through personalized exercises and AI-based speech analysis.",
-      imageUrl: "https://picsum.photos/seed/202/600/400",
+      imageUrl: PROJECT_IMGS.speechai,
       tags: ["Nest.js", "OpenAI API", "N8N","Postgres","React","Vite","Prisma"],
-      link: "https://example.com"
+      link: "https://github.com/FABIOAGC"
     },
     {
       id: 3,
       title: "EcoSense",
       description: "EcoSense is a system that monitors all light and water sensors in smart homes and analyzes consumption using AI to ensure everything is operating correctly.",
-      imageUrl: "https://picsum.photos/seed/305/600/400",
+      imageUrl: PROJECT_IMGS.ecosense,
       tags: ["React", "Python", "TensorFlow"],
-      link: "https://example.com"
+      link: "https://github.com/FABIOAGC"
     },
     {
       id: 4,
       title: "Inatel Rewards",
       description:"An app designed for Inatel students to redeem prizes at the cafeteria and library based on their grades and attendance in classes and lectures.",
-      imageUrl: "https://picsum.photos/seed/305/600/400",
+      imageUrl: PROJECT_IMGS.inatel_rewards,
       tags: ["FLutter", "Firebase"],
-      link: "https://example.com"
+      link: "https://github.com/FABIOAGC"
     }
   ],
   translations: {
@@ -191,33 +199,33 @@ quando não estou na faculdade , provavelmente eu me encontro jogando , já que 
       id: 1,
       title: "GymTrack",
       description: "Plataforma de construção e recomendação de treinos de academia , com dashboards de progresso e IA para recomendação de séries para cada membro.",
-      imageUrl: "https://picsum.photos/seed/101/600/400",
+      imageUrl: PROJECT_IMGS.gymtrack,
       tags: ["Next.js", "TypeScript", "SQLite", "Tailwind","Jenkins","Jest"],
-      link: "https://example.com"
+      link: "https://github.com/FABIOAGC"
     },
     {
       id: 2,
       title: "Speech.AI",
       description: "Sistema inteligente de assistência à fala desenvolvido para auxiliar medicos e pacientes com dificuldades de pronúncia através de exercícios personalizados e análise de fala com IA..",
-      imageUrl: "https://picsum.photos/seed/202/600/400",
+      imageUrl: PROJECT_IMGS.speechai,
       tags: ["Nest.js", "OpenAI API", "N8N","Postgres","React","Vite","Prisma"],
-      link: "https://example.com"
+      link: "https://github.com/FABIOAGC"
     },
     {
       id: 3,
       title: "EcoSense",
       description: "A ecosense é um sistema que ajuda a visualizar todos os sensores de luz e agua de casas smart e analisa o consumo para saber se esta tudos nos conformes usando IA",
-      imageUrl: "https://picsum.photos/seed/305/600/400",
+      imageUrl: PROJECT_IMGS.ecosense,
       tags: ["React", "Python", "TensorFlow"],
-      link: "https://example.com"
+      link: "https://github.com/FABIOAGC"
     },
     {
       id: 4,
       title: "Inatel Rewards",
       description: "É um aplicativo feito para os estudantes do inatel poderem resgatar premios na cantina e na biblioteca baseado nas notas e frequencia em aulas e palestras.",
-      imageUrl: "https://picsum.photos/seed/305/600/400",
+      imageUrl: PROJECT_IMGS.inatel_rewards,
       tags: ["FLutter", "Firebase"],
-      link: "https://example.com"
+      link: "https://github.com/FABIOAGC"
     }
   ],
   translations: {
@@ -240,24 +248,12 @@ quando não estou na faculdade , provavelmente eu me encontro jogando , já que 
 };
 
 const App: React.FC = () => {
-  const [language, setLanguage] = useState<'en' | 'pt'>('en');
+  // Set default language to 'pt'
+  const [language, setLanguage] = useState<'en' | 'pt'>('pt');
   
   // Select data based on state
   const currentData = language === 'en' ? DATA_EN : DATA_PT;
   const { profile, projects, translations } = currentData;
-
-  // Bio persistence effect (Optional: remove if you want only language switch to control bio)
-  // Currently keeping it but initializing based on language is cleaner. 
-  // If you want full language switch, local storage for 'user_bio' might conflict 
-  // if it only stores one language version. Disabling it for this feature to work cleanly.
-  /*
-  useEffect(() => {
-    const savedBio = localStorage.getItem('user_bio');
-    if (savedBio) {
-      // Logic to set bio would be complex with lang switch, skipping for now
-    }
-  }, []);
-  */
 
   return (
     <div className="min-h-screen bg-transparent text-slate-200 selection:bg-slate-700 selection:text-white relative">
@@ -320,7 +316,6 @@ const App: React.FC = () => {
               </div>
             </RevealOnScroll>
 
-            {/* Changed from lg:grid-cols-3 to md:grid-cols-2 for much larger cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {projects.map((project, index) => (
                 <RevealOnScroll key={project.id} delay={index * 150}>
