@@ -53,11 +53,11 @@ const DATA_EN = {
       },
       {
         category: "DevOps & Tools",
-        items: ["Git", "Docker","Postman", "AWS", "Vercel", "Jest", "CI/CD", "Linux"]
+        items: ["Git", "Docker","Postman", "AWS", "Vercel", "Jest","Excel","Power BI", "CI/CD", "Linux"]
       },
       {
         category: "Skills i'm Learning",
-        items: ["HFT in C++","Embedded systems","Kafka","Airflow"]
+        items: ["HFT in C++","Embedded systems","Airflow"]
       },
       {
         category: "Hard Skills",
@@ -144,7 +144,7 @@ const DATA_PT = {
     name: "Fabio Cruvinel",
     title: "Engenheiro de Software Júnior",
     bio: "Com meu conhecimento em tecnologias emergentes e sistemas eficientes , eu me esforço para criar os melhores e mais otimizados programas dentro da minha capacidade, sempre.",
-    about: `Sou bacharel em Engenharia de Software pelo Instituto Nacional de Telecomunicações (INATEL), e possuo Prática em tecnologias como 5G , redes , automação , IA e machine learning . Sempre fui muito interressado em tecnologia e atualmente estou focado em aprender Linguagens de baixo nivel , HFT e embarcados. 
+    about: `Sou bacharel em Engenharia de Software pelo Instituto Nacional de Telecomunicações (INATEL),tenho experiencia profissional com analise de dados e automação e possuo Prática em tecnologias como 5G , redes , IA e machine learning . Sempre fui muito interressado em tecnologia e atualmente estou focado em aprender Linguagens de baixo nivel , HFT e embarcados. 
 
 tenho previsão de formar em 2026 e após isso penso em buscar uma pós graduação na mesma aréa a fim de me tornar um especialista .Atualmente estou procurando oportunidades na aréa .
 
@@ -162,11 +162,11 @@ quando não estou na faculdade , provavelmente eu me encontro jogando , já que 
       },
       {
         category: "DevOps & Tools",
-        items: ["Git", "Docker","Postman", "AWS", "Vercel", "Jest", "CI/CD", "Linux"]
+        items: ["Git", "Docker","Postman", "AWS", "Vercel", "Jest","Excel","Power BI", "CI/CD", "Linux"]
       },
       {
         category: "Aprendendo Atualmente",
-        items: ["HFT em C++","Sistemas Embarcados","Kafka","Airflow"]
+        items: ["HFT em C++","Sistemas Embarcados",,"Airflow"]
       },
       {
         category: "Competências Técnicas",
