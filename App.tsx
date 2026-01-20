@@ -183,14 +183,14 @@ quando não estou na faculdade , provavelmente eu me encontro jogando , já que 
         role: "Pesquisador de Cibersegurança",
         company: "INATEL - CxSC Telecom Lab",
         period: "2023 - 2024",
-        description: "Pesquisei vulnerabilidades em bancos de dados relacionais e não relacionais em aplicações web (principalmente PHP). Estudei principalmente ataques como SQL Injection e formas de como impedi-los em ambiente Dockertizados com sistema Kali Linux"
+        description: "Realizei um estudo aprofundado sobre vulnerabilidades em bancos de dados relacionais e não relacionais, com ênfase em aplicações web desenvolvidas em PHP. Durante a pesquisa, explorei e simulei ataques do tipo _SQL Injection_ e outras técnicas de exploração em um ambiente controlado com Docker e Kali Linux, analisando vetores de risco, padrões de mitigação e boas práticas de segurança. O trabalho envolveu a configuração de containers para testes isolados, análise de logs e a implementação de contramedidas para fortalecer a segurança de sistemas web."
       },
       {
         id: 2,
         role: "Analista de Dados e Automação",
         company: "RW tech",
         period: "2025 - Present",
-        description: "Executei processamento de dados com Python e desenvolvi automações para pipelines internos da empresa usando a ferramenta N8N, além de criar dashboards interativos para análise de dados de negócios e KPIs usando Looker Studio."
+        description: "Fui responsável pelo desenvolvimento de automações de processos internos corporativos utilizando a ferramenta n8n, integrando diferentes sistemas e reduzindo tarefas manuais de varios outros empregados reduzindo o tempo de preenchimento de planilhas em até 80%. Além disso, criei dashboards interativos e relatórios dinâmicos para análise de indicadores de desempenho e dados empresariais no Looker Studio, aprimorando a tomada de decisão com KPIs claras e promovendo uma cultura orientada a dados dentro da empresa."
       },
     ]
   },
