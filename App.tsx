@@ -80,8 +80,15 @@ const DATA_EN = {
         id: 2,
         role: "Automation and Data Analyst",
         company: "RW tech",
-        period: "2025 - Present",
+        period: "2025 - 2025",
         description: "Executed data processing with python and developed automations for internal company pipelines using the N8N tool, in addition i created interactive dashboards for business data analysis and KPIs using Looker Studio."
+      },
+      {
+        id: 3,
+        role: "Supply Chain Data Analyst",
+        company: "General Mills",
+        period: "2026 - Present",
+        description: "I worked on digital transformation projects, dealing with computer vision and systems integration, providing support for the development and maintenance of supervisory systems. I took part in industrial automation and instrumentation activities, as well as in tests, proofs of concept (POCs), and prototyping. I implemented computer vision, artificial intelligence, machine learning, and data analysis at the foundational levels of the supply chain"
       },
     ]
   },
@@ -191,6 +198,13 @@ quando não estou na faculdade , provavelmente eu me encontro jogando , já que 
         company: "RW tech",
         period: "2025 - Present",
         description: "Fui responsável pelo desenvolvimento de automações de processos internos corporativos utilizando a ferramenta n8n, integrando diferentes sistemas e reduzindo tarefas manuais de varios outros empregados reduzindo o tempo de preenchimento de planilhas em até 80%. Além disso, criei dashboards interativos e relatórios dinâmicos para análise de indicadores de desempenho e dados empresariais no Looker Studio, aprimorando a tomada de decisão com KPIs claras e promovendo uma cultura orientada a dados dentro da empresa."
+      },
+      {
+        id: 3,
+        role: "Analista de Dados de Supply Chain",
+        company: "General Mills",
+        period: "2026 - Presente",
+        description: "Atuei em projetos de transformação digital, trabalhando com visão computacional e integração de sistemas, prestando suporte ao desenvolvimento e à manutenção de sistemas supervisórios. Participei de atividades de automação industrial e instrumentação, bem como de testes, provas de conceito (POCs) e prototipagens. Realizei a implantação de soluções de visão computacional, inteligência artificial, machine learning e análise de dados nas bases da cadeia de suprimentos"
       },
     ]
   },
