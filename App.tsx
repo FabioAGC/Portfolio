@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import BioSection from './components/BioSection';
-import AboutSection from './components/AboutSection';
 import SkillsSection from './components/SkillsSection';
 import ExperienceSection from './components/ExperienceSection';
 import ProjectCard from './components/ProjectCard';
@@ -38,7 +37,6 @@ const DATA_EN = {
   profile: {
     name: "Fabio Cruvinel",
     title: "Junior Software Engineer",
-    bio: "With my knowledge of emerging technologies and efficient systems, I strive to create the best and most optimized programs within my capabilities, always.",
     about: "I hold a Bachelor's degree in Software Engineering from the National Institute of Telecommunications (INATEL), and I have hands-on experience with technologies such as 5G, networking, automation, AI, and machine learning. I've always been deeply interested in technology, and I'm currently focusing on learning low-level languages, high-frequency trading systems, and embedded programming.\n\nI’m expected to graduate in 2026, and afterward, I plan to pursue a postgraduate degree in the same field to further specialize. At the moment, I’m looking for Junior or Intern opportunities in my area of expertise so i can hone mi abilities and further expand my knowledge in real scenarios.\n\nWhen I'm not at college, you’ll probably find me gaming — a lifelong passion of mine — or reading a book, since I’ve always been fascinated by classic literature (I even considered studying philosophy at one point!).",
     avatarUrl: SHARED_AVATAR,
     socials: SHARED_SOCIALS,
@@ -49,15 +47,15 @@ const DATA_EN = {
       },
       {
         category: "Backend",
-        items: ["C","C++","PHP","FLutter","Java", "Python" ,"Node.js", "Express", "PostgreSQL","MYSQL", "Firebase", "Supabase"]
+        items: ["C","C++","PHP","FLutter","Java", "Python" ,"Node.js", "Express"]
       },
       {
         category: "DevOps & Tools",
         items: ["Git", "Docker","Postman", "AWS", "Vercel", "Jest","Excel","Power BI", "CI/CD", "Linux"]
       },
       {
-        category: "Skills i'm Learning",
-        items: ["HFT in C++","Embedded systems","Airflow"]
+        category: "Databases",
+        items: ["PostgreSQL","MYSQL", "Firebase", "Supabase", "AVEVA", "SEEQ"]
       },
       {
         category: "Hard Skills",
@@ -150,12 +148,7 @@ const DATA_PT = {
   profile: {
     name: "Fabio Cruvinel",
     title: "Engenheiro de Software Júnior",
-    bio: "Com meu conhecimento em tecnologias emergentes e sistemas eficientes , eu me esforço para criar os melhores e mais otimizados programas dentro da minha capacidade, sempre.",
-    about: `Sou bacharel em Engenharia de Software pelo Instituto Nacional de Telecomunicações (INATEL),tenho experiencia profissional com analise de dados e automação e possuo Prática em tecnologias como 5G , redes , IA e machine learning . Sempre fui muito interressado em tecnologia e atualmente estou focado em aprender Linguagens de baixo nivel , HFT e embarcados. 
-
-tenho previsão de formar em 2026 e após isso penso em buscar uma pós graduação na mesma aréa a fim de me tornar um especialista .Atualmente estou procurando oportunidades na aréa .
-
-quando não estou na faculdade , provavelmente eu me encontro jogando , já que essa sempre foi uma paixão minha , ou então estou lendo algum livro , pois os classicos da literatura sempre me interressaram (já ate pensei em cursar filosfia)`,
+    about: "Sou bacharel em Engenharia de Software pelo Instituto Nacional de Telecomunicações (INATEL), tenho experiencia profissional com analise de dados e automação e possuo Prática em tecnologias como 5G, redes, IA e machine learning. Sempre fui muito interressado em tecnologia e atualmente estou focado em aprender Linguagens de baixo nivel, HFT e embarcados.\n\nQuando não estou na faculdade, provavelmente eu me encontro jogando, já que essa sempre foi uma paixão minha, ou então estou lendo algum livro, pois os classicos da literatura sempre me interressaram (já ate pensei em cursar Psiquiatria ou Filosfia)",
     avatarUrl: SHARED_AVATAR,
     socials: SHARED_SOCIALS,
     skills: [
@@ -165,15 +158,15 @@ quando não estou na faculdade , provavelmente eu me encontro jogando , já que 
       },
       {
         category: "Backend",
-        items: ["C","C++","PHP","FLutter","Java", "Python" ,"Node.js", "Express", "PostgreSQL","MYSQL", "Firebase", "Supabase"]
+        items: ["C","C++","PHP","FLutter","Java", "Python" ,"Node.js", "Express"]
       },
       {
         category: "DevOps & Tools",
         items: ["Git", "Docker","Postman", "AWS", "Vercel", "Jest","Excel","Power BI", "CI/CD", "Linux"]
       },
       {
-        category: "Aprendendo Atualmente",
-        items: ["HFT em C++","Sistemas Embarcados",,"Airflow"]
+        category: "Banco de Dados",
+        items: ["PostgreSQL","MYSQL", "Firebase", "Supabase", "AVEVA", "SEEQ"]
       },
       {
         category: "Competências Técnicas",
@@ -285,19 +278,9 @@ const App: React.FC = () => {
             <BioSection 
               name={profile.name}
               title={profile.title}
-              bio={profile.bio}
+              about={profile.about}
               avatarUrl={profile.avatarUrl}
               socials={profile.socials}
-            />
-          </RevealOnScroll>
-        </div>
-
-        <div id="about" className="scroll-mt-24">
-          <RevealOnScroll>
-            <AboutSection 
-              about={profile.about} 
-              title={translations.headers.about}
-              socials={profile.socials} 
             />
           </RevealOnScroll>
         </div>

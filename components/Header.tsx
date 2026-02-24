@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ socials, language, setLanguage, transla
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
       
-      const sections = ['home', 'about', 'tech', 'experience', 'projects'];
+      const sections = ['home', 'tech', 'experience', 'projects'];
       
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -54,7 +54,6 @@ const Header: React.FC<HeaderProps> = ({ socials, language, setLanguage, transla
 
   const navLinks = [
     { name: translations.home, href: '#home', label: translations.home },
-    { name: translations.about, href: '#about', label: translations.about },
     { name: translations.tech, href: '#tech', label: translations.tech },
     { name: translations.experience, href: '#experience', label: translations.experience },
     { name: translations.projects, href: '#projects', label: translations.projects },

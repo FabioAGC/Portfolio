@@ -36,7 +36,6 @@ export interface JobExperience {
 export interface UserProfile {
   name: string;
   title: string;
-  bio: string;
   about: string;
   avatarUrl: string;
   socials: SocialLinks;
