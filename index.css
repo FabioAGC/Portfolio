@@ -374,7 +374,7 @@ main {
 /* Round portrait with a thin offset ring, like a porthole onto the water. */
 .hero__portrait {
   position: relative;
-  --size: clamp(220px, 27vw, 400px);
+  --size: clamp(170px, 19vw, 270px);
   flex: none;
   width: var(--size);
   height: var(--size);
@@ -386,7 +386,7 @@ main {
 .hero__portrait::after {
   content: '';
   position: absolute;
-  inset: -12px;
+  inset: -10px;
   border: 1px solid var(--line-strong);
   border-radius: 50%;
   pointer-events: none;
@@ -397,7 +397,7 @@ main {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  object-position: 52% 22%;
+  object-position: center;
 }
 
 .hero__eyebrow {
@@ -915,7 +915,7 @@ main {
   }
 
   .hero__portrait {
-    --size: clamp(150px, 44vw, 200px);
+    --size: clamp(120px, 34vw, 150px);
     margin-left: 12px;
   }
 
