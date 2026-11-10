@@ -694,6 +694,7 @@ main {
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
+  border-radius: 10px;
   border: 1px solid var(--line);
   /* Echoes the ocean's cell grid while the image loads, or if it fails. */
   background:
