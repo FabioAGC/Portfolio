@@ -18,7 +18,9 @@
 
   --gutter: clamp(20px, 5vw, 48px);
   --header-h: 64px;
-  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* For slow fades and anything that should barely announce itself. */
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ── Base ────────────────────────────────────────────────────────────── */
@@ -117,7 +119,8 @@ button {
   inset: 0 0 auto 0;
   z-index: 50;
   border-bottom: 1px solid transparent;
-  transition: background-color 0.3s var(--ease), border-color 0.3s var(--ease);
+  transition: background-color 0.6s var(--ease-soft), border-color 0.6s var(--ease-soft),
+    backdrop-filter 0.6s var(--ease-soft);
 }
 
 .header--solid {
@@ -156,7 +159,7 @@ button {
   position: relative;
   padding-block: 6px;
   color: var(--muted);
-  transition: color 0.2s var(--ease);
+  transition: color 0.4s var(--ease);
 }
 
 .header__nav a::after {
@@ -167,7 +170,7 @@ button {
   background: var(--fg);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.3s var(--ease);
+  transition: transform 0.5s var(--ease);
 }
 
 .header__nav a:hover,
@@ -196,7 +199,7 @@ button {
 .lang__option {
   padding: 6px 4px;
   color: var(--faint);
-  transition: color 0.2s var(--ease);
+  transition: color 0.4s var(--ease);
 }
 
 .lang__option + .lang__option::before {
@@ -255,6 +258,7 @@ button {
 }
 
 .ocean__water {
+  animation: fade 2s var(--ease-soft) both;
   position: absolute;
   top: 0;
   left: 0;
@@ -291,60 +295,59 @@ main,
   position: relative;
 }
 
+/* Re-mounted on a language switch, so the new text fades in. */
+main {
+  animation: fade 0.7s var(--ease-soft) both;
+}
+
 /* Water lilies floating on the surface, on the ocean's cell grid. */
 .lilies {
   position: absolute;
   inset: 0;
+  animation: fade 2.4s var(--ease-soft) both;
 }
 
 .lily {
   position: absolute;
-  animation: bob ease-in-out infinite alternate;
+  font-family: var(--font-mono);
+  animation: drift ease-in-out infinite alternate;
+  will-change: transform;
 }
 
-/* The pad's shadow on the water, so sharks pass visibly underneath. */
+/* The pad's shadow on the water below, so it reads as floating. */
 .lily::before {
   content: '';
   position: absolute;
-  inset: 4%;
+  inset: 6%;
   border-radius: 50%;
-  background: rgba(3, 22, 10, 0.62);
+  background: rgba(0, 0, 0, 0.55);
+  filter: blur(10px);
+  transform: translate(7px, 10px);
 }
 
-.lily pre {
+.lily canvas {
   position: absolute;
+  font-family: inherit;
+}
+
+.lily__pad {
   inset: 0;
-  margin: 0;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: calc(var(--ch) * 0.74);
-  line-height: var(--ch);
-  /* Geist Mono advances 0.6em; pad it out to one grid cell per glyph. */
-  letter-spacing: calc(var(--cw) - var(--ch) * 0.74 * 0.6);
-  white-space: pre;
+  width: 100%;
+  height: 100%;
 }
 
-.lily__fill {
-  color: rgba(60, 181, 74, 0.45);
-}
-
-.lily__rim {
-  color: rgba(74, 200, 92, 0.85);
-}
-
-.lily pre.lily__flower {
-  inset: auto;
-  top: calc(var(--ch) * -1);
-  right: calc(var(--cw) * -2);
-  color: rgba(255, 214, 228, 0.9);
-}
-
-@keyframes bob {
+@keyframes drift {
   from {
-    transform: translate(-3px, 2px) rotate(-1.5deg);
+    transform: translate3d(-4px, 3px, 0) rotate(-2deg);
   }
   to {
-    transform: translate(3px, -2px) rotate(1.5deg);
+    transform: translate3d(4px, -3px, 0) rotate(2deg);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
   }
 }
 
@@ -370,7 +373,7 @@ main,
   height: var(--size);
   margin-bottom: 4px;
   border-radius: 50%;
-  animation: rise 0.9s var(--ease) 0.3s both;
+  animation: rise 1.3s var(--ease) 0.3s both;
 }
 
 .hero__portrait::after {
@@ -392,7 +395,7 @@ main,
 
 .hero__eyebrow {
   color: var(--fg);
-  animation: rise 0.9s var(--ease) 0.1s both;
+  animation: rise 1.3s var(--ease) 0.1s both;
 }
 
 .hero__name {
@@ -403,7 +406,7 @@ main,
   line-height: 0.92;
   letter-spacing: -0.02em;
   text-wrap: balance;
-  animation: rise 0.9s var(--ease) 0.2s both;
+  animation: rise 1.3s var(--ease) 0.2s both;
 }
 
 .hero__actions {
@@ -412,7 +415,7 @@ main,
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  animation: rise 0.9s var(--ease) 0.35s both;
+  animation: rise 1.3s var(--ease) 0.35s both;
 }
 
 .hero__socials {
@@ -428,7 +431,7 @@ main,
   align-items: center;
   justify-content: center;
   color: var(--muted);
-  transition: color 0.2s var(--ease);
+  transition: color 0.4s var(--ease);
 }
 
 .hero__socials a:hover {
@@ -448,7 +451,7 @@ main,
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  transition: background-color 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease);
+  transition: background-color 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease);
 }
 
 .button:hover {
@@ -469,7 +472,7 @@ main,
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(18px);
   }
 }
 
@@ -498,8 +501,9 @@ main,
 
 .reveal {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  transform: translateY(18px);
+  transition: opacity 1.2s var(--ease-soft), transform 1.3s var(--ease);
+  will-change: opacity, transform;
 }
 
 .reveal.is-visible {
@@ -562,7 +566,7 @@ main,
   font-size: 12.5px;
   letter-spacing: 0.02em;
   color: var(--muted);
-  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease);
 }
 
 .chip__icon {
@@ -650,7 +654,7 @@ main,
     linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 100% 18px,
     linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 12px 100%,
     #000;
-  transition: border-color 0.3s var(--ease);
+  transition: border-color 0.5s var(--ease);
 }
 
 .project:hover .project__media {
@@ -662,11 +666,11 @@ main,
   height: 100%;
   object-fit: cover;
   object-position: top;
-  transition: transform 0.9s var(--ease);
+  transition: transform 1.4s var(--ease);
 }
 
 .project:hover .project__media img {
-  transform: scale(1.02);
+  transform: scale(1.035);
 }
 
 .project__placeholder {
@@ -747,7 +751,7 @@ main,
   font-family: var(--font-mono);
   font-size: clamp(0.95rem, 2.2vw, 1.35rem);
   overflow-wrap: anywhere;
-  transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+  transition: border-color 0.4s var(--ease), color 0.4s var(--ease);
 }
 
 .contact__email:hover {
@@ -772,7 +776,7 @@ main,
   gap: 6px;
   padding-block: 8px;
   color: var(--muted);
-  transition: color 0.2s var(--ease);
+  transition: color 0.4s var(--ease);
 }
 
 .contact__links a:hover {
@@ -799,7 +803,7 @@ main,
 .footer a {
   color: var(--muted);
   border-bottom: 1px solid var(--line-strong);
-  transition: color 0.2s var(--ease);
+  transition: color 0.4s var(--ease);
 }
 
 .footer a:hover {
@@ -840,6 +844,27 @@ main,
     border-top: 1px solid var(--line);
     background: #000;
     overflow-y: auto;
+    animation: fade 0.45s var(--ease-soft) both;
+  }
+
+  .mobile-menu a {
+    animation: rise 0.7s var(--ease) both;
+  }
+
+  .mobile-menu a:nth-child(2) {
+    animation-delay: 0.05s;
+  }
+
+  .mobile-menu a:nth-child(3) {
+    animation-delay: 0.1s;
+  }
+
+  .mobile-menu a:nth-child(4) {
+    animation-delay: 0.15s;
+  }
+
+  .mobile-menu a:nth-child(5) {
+    animation-delay: 0.2s;
   }
 
   .mobile-menu a {

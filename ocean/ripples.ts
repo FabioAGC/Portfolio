@@ -5,10 +5,12 @@
  * with it. The canvas only animates while a ripple is alive.
  */
 
-const DURATION = 2.1;
-const RADIUS = 190;
+const DURATION = 3;
+const RADIUS = 210;
 const RINGS = 3;
-const RING_DELAY = 0.24;
+const RING_DELAY = 0.34;
+/** How far either side of a wavefront cells still light up, in cell widths. */
+const SOFTNESS = 1.15;
 const COLOR = '110,230,255';
 
 interface Ripple {
@@ -108,8 +110,8 @@ export class Ripples {
       const r1 = Math.ceil((ripple.y + RADIUS) / ch);
 
       // The drop itself, for the first instant.
-      if (age < 0.3) {
-        ctx.fillStyle = `rgba(${COLOR},${(1 - age / 0.3).toFixed(2)})`;
+      if (age < 0.5) {
+        ctx.fillStyle = `rgba(${COLOR},${Math.pow(1 - age / 0.5, 2).toFixed(2)})`;
         ctx.fillText(
           'o',
           (Math.floor(ripple.x / cw) + 0.5) * cw + rect.left,
@@ -121,15 +123,21 @@ export class Ripples {
         const p = (age - ring * RING_DELAY) / (DURATION - ring * RING_DELAY);
         if (p <= 0 || p >= 1) continue;
         // Fast at first, then easing out, like a wavefront losing energy.
-        const radius = RADIUS * (1 - Math.pow(1 - p, 2.2)) * (1 - ring * 0.12);
-        const alpha = Math.pow(1 - p, 1.4) * (0.95 - ring * 0.25);
+        const radius = RADIUS * (1 - Math.pow(1 - p, 2.6)) * (1 - ring * 0.12);
+        // Ease in over the first moments as well as out, so rings don't pop.
+        const alpha = Math.min(1, p * 9) * Math.pow(1 - p, 1.6) * (1 - ring * 0.25);
         if (alpha < 0.03) continue;
-        ctx.fillStyle = `rgba(${COLOR},${alpha.toFixed(2)})`;
+        // Cells fade in and out as the front crosses them, so the ring
+        // glides outward instead of jumping from cell to cell.
+        const reach = cw * SOFTNESS;
         for (let row = r0; row <= r1; row++) {
           const dy = (row + 0.5) * ch - ripple.y;
           for (let col = c0; col <= c1; col++) {
             const dx = (col + 0.5) * cw - ripple.x;
-            if (Math.abs(Math.hypot(dx, dy) - radius) > cw * 0.5) continue;
+            const off = Math.abs(Math.hypot(dx, dy) - radius);
+            if (off > reach) continue;
+            const near = 1 - off / reach;
+            ctx.fillStyle = `rgba(${COLOR},${(alpha * near * near).toFixed(3)})`;
             ctx.fillText(ringGlyph(dx, dy), (col + 0.5) * cw + rect.left, (row + 0.5) * ch + rect.top);
           }
         }

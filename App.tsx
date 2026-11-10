@@ -28,7 +28,7 @@ const App: React.FC = () => {
 
       <Header name={profile.name} language={language} setLanguage={setLanguage} t={t.nav} />
 
-      <main>
+      <main key={language}>
         <Hero
           name={profile.name}
           title={profile.title}

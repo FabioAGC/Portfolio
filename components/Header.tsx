@@ -40,7 +40,8 @@ const Header: React.FC<HeaderProps> = ({ name, language, setLanguage, t }) => {
       if (el) observer.observe(el);
     }
     return () => observer.disconnect();
-  }, []);
+    // Sections are re-mounted when the language changes, so observe them again.
+  }, [language]);
 
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? 'hidden' : '';
