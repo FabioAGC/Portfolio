@@ -202,7 +202,7 @@ export function scatterLilies({ width, height, cw, ch }: OceanMetrics): LilyPad[
   const rand = mulberry32(20261110);
   const margin = Math.max(0, (width - CONTENT_WIDTH) / 2);
   const wide = margin >= 110;
-  const clusters = Math.min(18, Math.max(5, Math.round(height / (wide ? 420 : 560))));
+  const clusters = Math.min(9, Math.max(3, Math.round(height / (wide ? 900 : 1300))));
   const pads: LilyPad[] = [];
 
   const add = (centerX: number, centerY: number, radius: number, mayFlower: boolean) => {
@@ -252,7 +252,7 @@ export function scatterLilies({ width, height, cw, ch }: OceanMetrics): LilyPad[
     add(centerX, centerY, radius, true);
 
     // Younger pads gathered round the big one.
-    const young = Math.floor(rand() * 3);
+    const young = rand() < 0.4 ? 1 : 0;
     for (let k = 0; k < young; k++) {
       const small = wide ? 2 + Math.floor(rand() * 2) : 2;
       const at = rand() * Math.PI * 2;

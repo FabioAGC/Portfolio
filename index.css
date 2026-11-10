@@ -304,7 +304,9 @@ main {
 .lilies {
   position: absolute;
   inset: 0;
-  animation: fade 2.4s var(--ease-soft) both;
+  /* Part of the background: dim, and under the veil like the sharks. */
+  opacity: 0.5;
+  animation: lilies-in 2.4s var(--ease-soft) both;
 }
 
 .lily {
@@ -342,6 +344,12 @@ main {
   }
   to {
     transform: translate3d(4px, -3px, 0) rotate(2deg);
+  }
+}
+
+@keyframes lilies-in {
+  from {
+    opacity: 0;
   }
 }
 
