@@ -77,7 +77,7 @@ const EN: SiteContent = {
         id: 1,
         role: 'Cybersecurity Researcher',
         company: 'INATEL — CxSC Telecom Lab',
-        logo: logo('inatel'),
+        logo: logo('cxsc'),
         period: '2023 — 2024',
         description:
           'Researched vulnerabilities in relational and non-relational databases in web applications (mainly PHP). Studied attacks such as SQL Injection in a Docker environment with Kali Linux.',
@@ -220,7 +220,7 @@ const PT: SiteContent = {
         id: 1,
         role: 'Pesquisador de Cibersegurança',
         company: 'INATEL — CxSC Telecom Lab',
-        logo: logo('inatel'),
+        logo: logo('cxsc'),
         period: '2023 — 2024',
         description:
           'Realizei um estudo aprofundado sobre vulnerabilidades em bancos de dados relacionais e não relacionais, com ênfase em aplicações web desenvolvidas em PHP. Durante a pesquisa, explorei e simulei ataques do tipo SQL Injection e outras técnicas de exploração em um ambiente controlado com Docker e Kali Linux, analisando vetores de risco, padrões de mitigação e boas práticas de segurança. O trabalho envolveu a configuração de containers para testes isolados, análise de logs e a implementação de contramedidas para fortalecer a segurança de sistemas web.',
