@@ -23,6 +23,18 @@ export type SharkKind = "classic" | "hammerhead" | "zebra" | "tiger" | "greatham
 /** Which sharks to put in the water; size is relative to the biggest. */
 export type SharkSpec = { kind: SharkKind; size: number };
 
+/**
+ * Local addition (not upstream). "lanes" is for a world much taller than it
+ * is wide, such as a whole scrolling page: sharks are spread down its height
+ * and patrol tall loops in the side margins, either side of a central
+ * content column, instead of circling the middle of the world.
+ */
+export interface WorldOptions {
+  patrol?: "center" | "lanes";
+  /** Width of the central column the sharks leave mostly clear ("lanes" only). */
+  contentWidth?: number;
+}
+
 // The landing hero: four of the same shark at different depths.
 const DEFAULT_SHARKS: SharkSpec[] = [
   { kind: "classic", size: 1 },
@@ -71,6 +83,11 @@ export interface Shark {
   retargetAt: number;
   /** 0 far / dim → 1 near / bright. */
   depth: number;
+  /** Centre of this shark's patrol loop ("lanes" patrol only). */
+  homeX: number;
+  homeY: number;
+  /** When it next picks a new stretch of the page to patrol. */
+  rehomeAt: number;
 }
 
 export interface WorldEvent {
@@ -112,7 +129,26 @@ export class World {
   constructor(
     private sharkSpecs: SharkSpec[] = DEFAULT_SHARKS,
     private fishCount?: number,
+    private options: WorldOptions = {},
   ) {}
+
+  /** Side-lane geometry for the "lanes" patrol, from the current size. */
+  private lanes() {
+    const { width: W, height: H } = this;
+    const margin = Math.max(0, (W - (this.options.contentWidth ?? W)) / 2);
+    // Too narrow for real margins (phones): loop loosely around the middle instead.
+    const open = margin >= 110;
+    const count = Math.max(1, this.sharkSpecs.length);
+    return {
+      open,
+      leftX: open ? margin * 0.5 : W * 0.3,
+      rightX: open ? W - margin * 0.5 : W * 0.7,
+      rx: open ? clamp(margin * 0.42, 45, 260) : W * 0.3,
+      ry: clamp((H / count) * 1.15, 220, 620),
+      /** Half-width of the content column sharks are nudged out of. */
+      column: open ? W / 2 - margin : 0,
+    };
+  }
 
   resize(width: number, height: number, cellW: number, cellH: number) {
     const first = this.width === 0;
@@ -140,6 +176,8 @@ export class World {
     const baseLength = clamp(minSide * 0.44, 170, 430);
     const sharkCount = this.sharkSpecs.length;
 
+    const laned = this.options.patrol === "lanes";
+    const lanes = this.lanes();
     this.sharks = [];
     for (let i = 0; i < sharkCount; i++) {
       const { kind, size } = this.sharkSpecs[i];
@@ -147,9 +185,19 @@ export class World {
       const orbitRadius = minSide * rand(0.28, 0.4);
       const a = (i / sharkCount) * TAU + rand(-0.4, 0.4);
       const orbitDir: 1 | -1 = i % 2 === 0 ? 1 : -1;
-      const x = W / 2 + Math.cos(a) * orbitRadius * (W / minSide) * 0.9;
-      const y = H / 2 + Math.sin(a) * orbitRadius;
-      const heading = a + (orbitDir * Math.PI) / 2;
+      let x = W / 2 + Math.cos(a) * orbitRadius * (W / minSide) * 0.9;
+      let y = H / 2 + Math.sin(a) * orbitRadius;
+      let heading = a + (orbitDir * Math.PI) / 2;
+      let homeX = W / 2;
+      let homeY = H / 2;
+      if (laned) {
+        // One shark per stretch of the page, alternating sides.
+        homeX = i % 2 === 0 ? lanes.leftX : lanes.rightX;
+        homeY = clamp(((i + rand(0.2, 0.8)) / sharkCount) * H, 0, H);
+        x = homeX;
+        y = homeY;
+        heading = (Math.random() < 0.5 ? 1 : -1) * (Math.PI / 2) + rand(-0.3, 0.3);
+      }
       const nodes = new Float32Array(SHARK_NODES * 2);
       const seg = length / (SHARK_NODES - 1);
       for (let n = 0; n < SHARK_NODES; n++) {
@@ -172,6 +220,9 @@ export class World {
         target: null,
         retargetAt: 0,
         depth: size,
+        homeX,
+        homeY,
+        rehomeAt: rand(20, 70),
       });
     }
     // Smaller (farther) sharks draw first so the big one swims over them.
@@ -461,6 +512,8 @@ export class World {
     const minSide = Math.min(W, H);
     const cxW = W / 2;
     const cyW = H / 2;
+    const laned = this.options.patrol === "lanes";
+    const lanes = this.lanes();
 
     for (const sh of sharks) {
       const L = sh.length;
@@ -497,6 +550,33 @@ export class World {
         dy += (ty / d) * w;
         hunting = true;
         closing = clamp(1 - d / (L * 0.9), 0, 1);
+      } else if (laned) {
+        // Patrol: a tall loop in a side margin. Now and then move on to
+        // another stretch, which takes the shark across the page.
+        if (time >= sh.rehomeAt) {
+          sh.rehomeAt = time + rand(35, 80);
+          if (Math.random() < 0.45) sh.homeX = sh.homeX < cxW ? lanes.rightX : lanes.leftX;
+          sh.homeY = clamp(sh.homeY + rand(-1.5, 1.5) * lanes.ry, lanes.ry * 0.4, H - lanes.ry * 0.4);
+        }
+        // Keep homes on the lanes if the page was resized.
+        sh.homeX = sh.homeX < cxW ? lanes.leftX : lanes.rightX;
+        const ux = (hx - sh.homeX) / lanes.rx;
+        const uy = (hy - sh.homeY) / lanes.ry;
+        const u = Math.hypot(ux, uy) || 1;
+        // Tangent and radial directions of the ellipse, back in pixel space.
+        let tx = -uy * lanes.rx * sh.orbitDir;
+        let ty = ux * lanes.ry * sh.orbitDir;
+        const tl = Math.hypot(tx, ty) || 1;
+        tx /= tl;
+        ty /= tl;
+        const ox = hx - sh.homeX;
+        const oy = hy - sh.homeY;
+        const ol = Math.hypot(ox, oy) || 1;
+        const radial = clamp(1 - u, -1, 1);
+        // Far from the loop the pull home takes over from circling.
+        const far = clamp(u - 1.5, 0, 1);
+        dx += (tx * (1 - far) + (ox / ol) * radial * (0.9 + far * 1.6)) * 0.6;
+        dy += (ty * (1 - far) + (oy / ol) * radial * (0.9 + far * 1.6)) * 0.6;
       } else {
         // Patrol: a lazy circuit around the headline.
         const rx = (hx - cxW) / (W / minSide);
@@ -524,11 +604,22 @@ export class World {
         }
       }
 
+      if (laned) {
+        // Keep the content column mostly clear: nudge sharks inside it out
+        // toward their own side, so crossing sharks are carried through.
+        if (lanes.open) {
+          const ex = Math.abs(hx - cxW) / lanes.column;
+          if (ex < 1) {
+            const w = Math.min(1, (1 - ex) * 2.2) * (hunting ? 1.3 : 2.2);
+            dx += (sh.homeX < cxW ? -1 : 1) * w;
+          }
+        }
+      }
       // Keep the headline mostly clear: a soft elliptical no-swim zone.
       const ex = (hx - cxW) / (W * 0.3);
       const ey = (hy - cyW) / (H * 0.16);
       const e2 = ex * ex + ey * ey;
-      if (e2 < 1) {
+      if (!laned && e2 < 1) {
         const e = Math.sqrt(e2) || 1e-3;
         const w = (1 - e) * (hunting ? 1 : 2.5);
         dx += (ex / e) * w;
@@ -540,8 +631,8 @@ export class World {
       const over = Math.max(-hx, hx - W, -hy, hy - H);
       if (over > -L * 0.05) {
         const w = clamp((over + L * 0.05) / (L * 0.35), 0, 1) * 3.5;
-        const toX = cxW - hx;
-        const toY = cyW - hy;
+        const toX = (laned ? clamp(hx, W * 0.1, W * 0.9) : cxW) - hx;
+        const toY = (laned ? clamp(hy, 40, H - 40) : cyW) - hy;
         const d = Math.hypot(toX, toY) || 1;
         dx += (toX / d) * w;
         dy += (toY / d) * w;

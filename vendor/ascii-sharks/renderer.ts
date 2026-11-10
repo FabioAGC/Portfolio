@@ -390,6 +390,27 @@ export class AsciiRenderer {
     this.paintBackground();
   }
 
+  /**
+   * Local addition (not upstream). Slide the wake and heat fields by whole
+   * rows when the canvas is a window moving over a taller world, so trails
+   * stay put in the world instead of following the window. Positive n means
+   * the window moved down.
+   */
+  scrollRows(n: number) {
+    if (!n) return;
+    const k = Math.abs(n) * this.cols;
+    for (const field of [this.energy, this.heat]) {
+      if (k >= field.length) field.fill(0);
+      else if (n > 0) {
+        field.copyWithin(0, k);
+        field.fill(0, field.length - k);
+      } else {
+        field.copyWithin(k, 0, field.length - k);
+        field.fill(0, 0, k);
+      }
+    }
+  }
+
   private paintBackground() {
     const g = this.bg.getContext("2d");
     if (!g) return;

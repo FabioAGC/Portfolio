@@ -1,25 +1,20 @@
 import React, { useState } from 'react';
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
-import type { SharkSpec } from '../vendor/ascii-sharks';
 import { SocialLinks, Translations } from '../types';
-import OceanBackdrop from './OceanBackdrop';
 
 interface HeroProps {
   name: string;
   title: string;
   avatarUrl: string;
   socials: SocialLinks;
-  sharks: SharkSpec[];
   t: Translations['hero'];
 }
 
-const Hero: React.FC<HeroProps> = ({ name, title, avatarUrl, socials, sharks, t }) => {
+const Hero: React.FC<HeroProps> = ({ name, title, avatarUrl, socials, t }) => {
   const [imageFailed, setImageFailed] = useState(false);
 
   return (
     <section id="home" className="hero">
-      <OceanBackdrop sharks={sharks} cover="scrim" />
-
       <div className="container hero__content">
         <div className="hero__text">
           <p className="eyebrow hero__eyebrow">{title}</p>
