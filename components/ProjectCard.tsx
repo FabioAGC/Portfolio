@@ -12,7 +12,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   return (
     <article className="project">
       <div className="project__media">
-        {imageFailed ? (
+        {!project.imageUrl || imageFailed ? (
           <span className="project__placeholder" aria-hidden="true">
             {project.title}
           </span>

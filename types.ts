@@ -4,7 +4,8 @@ export interface Project {
   id: number;
   title: string;
   description: string;
-  imageUrl: string;
+  /** Screenshot of the project; a titled placeholder is shown when unset. */
+  imageUrl?: string;
   /** CSS object-position for the cropped thumbnail; defaults to the top. */
   imagePosition?: string;
   tags: string[];

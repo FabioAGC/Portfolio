@@ -140,6 +140,25 @@ const EN: SiteContent = {
       tags: ['REST API', 'Jest', 'Playwright', 'Jenkins'],
       link: 'https://github.com/FABIOAGC',
     },
+    {
+      id: 7,
+      title: 'MCP for AVEVA MES',
+      description:
+        'An MCP server that connects AI assistants to AVEVA MES, so production data can be queried in natural language.',
+      tags: ['MCP', 'AVEVA MES', 'AI'],
+    },
+    {
+      id: 8,
+      title: 'Report Checker',
+      description: 'A tool that checks technical reports automatically and flags inconsistencies for review.',
+      tags: ['Automation', 'AI'],
+    },
+    {
+      id: 9,
+      title: 'Potato Line Computer Vision',
+      description: 'A computer vision system that monitors the potato production line.',
+      tags: ['Computer Vision', 'AI'],
+    },
   ],
   translations: {
     nav: {
@@ -282,6 +301,25 @@ const PT: SiteContent = {
       imageUrl: PROJECT_IMGS.smartreserve,
       tags: ['API REST', 'Jest', 'Playwright', 'Jenkins'],
       link: 'https://github.com/FABIOAGC',
+    },
+    {
+      id: 7,
+      title: 'MCP para AVEVA MES',
+      description:
+        'Servidor MCP que conecta assistentes de IA ao AVEVA MES, permitindo consultar dados de produção em linguagem natural.',
+      tags: ['MCP', 'AVEVA MES', 'IA'],
+    },
+    {
+      id: 8,
+      title: 'Checador de Laudos',
+      description: 'Ferramenta que confere laudos técnicos automaticamente e aponta inconsistências para revisão.',
+      tags: ['Automação', 'IA'],
+    },
+    {
+      id: 9,
+      title: 'Visão Computacional na Linha de Batata',
+      description: 'Sistema de visão computacional que monitora a linha de produção de batata.',
+      tags: ['Visão Computacional', 'IA'],
     },
   ],
   translations: {
