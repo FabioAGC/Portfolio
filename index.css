@@ -632,8 +632,8 @@ main {
   gap: 18px;
 }
 
-/* Company logo on a white tile (the logos are drawn for light backgrounds),
-   or the company's initials when there is no logo file. */
+/* Company logo straight on the page, or the company's initials in a box
+   when there is no logo file. */
 .timeline__mark {
   flex: none;
   display: grid;
@@ -650,16 +650,14 @@ main {
 }
 
 .timeline__mark:has(img) {
-  padding: 0 10px;
-  border-color: transparent;
-  border-radius: 4px;
-  background: #f4f5f7;
+  border: 0;
+  background: none;
 }
 
 .timeline__mark img {
   width: auto;
-  max-width: 96px;
-  height: 38px;
+  max-width: 110px;
+  height: 46px;
   object-fit: contain;
 }
 
