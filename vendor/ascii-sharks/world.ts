@@ -21,7 +21,19 @@ export const SHARK_NODES = 20;
 export type SharkKind = "classic" | "hammerhead" | "zebra" | "tiger" | "greathammer" | "mako" | "thresher" | "nurse";
 
 /** Which sharks to put in the water; size is relative to the biggest. */
-export type SharkSpec = { kind: SharkKind; size: number };
+export type SharkSpec = { kind: SharkKind; size: number; pen?: Pen };
+
+/**
+ * Local addition (not upstream). A rectangle, in world pixels, that a shark
+ * spawns in and never leaves. The object is read live, so the owner can
+ * resize it at any time.
+ */
+export interface Pen {
+  x0: number;
+  y0: number;
+  x1: number;
+  y1: number;
+}
 
 /**
  * Local addition (not upstream). "lanes" is for a world much taller than it
@@ -88,6 +100,8 @@ export interface Shark {
   homeY: number;
   /** When it next picks a new stretch of the page to patrol. */
   rehomeAt: number;
+  /** The rectangle this shark is confined to, if any. */
+  pen: Pen | null;
 }
 
 export interface WorldEvent {
@@ -180,7 +194,7 @@ export class World {
     const lanes = this.lanes();
     this.sharks = [];
     for (let i = 0; i < sharkCount; i++) {
-      const { kind, size } = this.sharkSpecs[i];
+      const { kind, size, pen = null } = this.sharkSpecs[i];
       const length = baseLength * size;
       const orbitRadius = minSide * rand(0.28, 0.4);
       const a = (i / sharkCount) * TAU + rand(-0.4, 0.4);
@@ -197,6 +211,15 @@ export class World {
         x = homeX;
         y = homeY;
         heading = (Math.random() < 0.5 ? 1 : -1) * (Math.PI / 2) + rand(-0.3, 0.3);
+      }
+      if (pen) {
+        // Penned sharks start inside their rectangle, on alternating sides.
+        homeX = (pen.x0 + pen.x1) / 2;
+        homeY = (pen.y0 + pen.y1) / 2;
+        const side = i % 2 === 0 ? -1 : 1;
+        x = homeX + side * (pen.x1 - pen.x0) * 0.22;
+        y = homeY - side * (pen.y1 - pen.y0) * 0.15;
+        heading = (side < 0 ? 0 : Math.PI) + rand(-0.3, 0.3);
       }
       const nodes = new Float32Array(SHARK_NODES * 2);
       const seg = length / (SHARK_NODES - 1);
@@ -223,6 +246,7 @@ export class World {
         homeX,
         homeY,
         rehomeAt: rand(20, 70),
+        pen,
       });
     }
     // Smaller (farther) sharks draw first so the big one swims over them.
@@ -540,7 +564,11 @@ export class World {
       const t = sh.target;
       let hunting = false;
       let closing = 0;
-      if (t && t.alive && sh.hunger > 0.3) {
+      const pen = sh.pen;
+      // A penned shark only chases what is inside its rectangle.
+      const reachable =
+        !pen || !t || (t.x > pen.x0 && t.x < pen.x1 && t.y > pen.y0 && t.y < pen.y1);
+      if (t && t.alive && sh.hunger > 0.3 && reachable) {
         // Pursuit: aim at where the fish is about to be.
         const tx = t.x + t.vx * 0.35 - hx;
         const ty = t.y + t.vy * 0.35 - hy;
@@ -550,22 +578,32 @@ export class World {
         dy += (ty / d) * w;
         hunting = true;
         closing = clamp(1 - d / (L * 0.9), 0, 1);
-      } else if (laned) {
-        // Patrol: a tall loop in a side margin. Now and then move on to
-        // another stretch, which takes the shark across the page.
-        if (time >= sh.rehomeAt) {
-          sh.rehomeAt = time + rand(35, 80);
-          if (Math.random() < 0.45) sh.homeX = sh.homeX < cxW ? lanes.rightX : lanes.leftX;
-          sh.homeY = clamp(sh.homeY + rand(-1.5, 1.5) * lanes.ry, lanes.ry * 0.4, H - lanes.ry * 0.4);
+      } else if (laned || pen) {
+        let loopX = lanes.rx;
+        let loopY = lanes.ry;
+        if (pen) {
+          // Patrol: a wide loop around the middle of the pen.
+          sh.homeX = (pen.x0 + pen.x1) / 2;
+          sh.homeY = (pen.y0 + pen.y1) / 2;
+          loopX = (pen.x1 - pen.x0) * 0.34;
+          loopY = (pen.y1 - pen.y0) * 0.26;
+        } else {
+          // Patrol: a tall loop in a side margin. Now and then move on to
+          // another stretch, which takes the shark across the page.
+          if (time >= sh.rehomeAt) {
+            sh.rehomeAt = time + rand(35, 80);
+            if (Math.random() < 0.45) sh.homeX = sh.homeX < cxW ? lanes.rightX : lanes.leftX;
+            sh.homeY = clamp(sh.homeY + rand(-1.5, 1.5) * lanes.ry, lanes.ry * 0.4, H - lanes.ry * 0.4);
+          }
+          // Keep homes on the lanes if the page was resized.
+          sh.homeX = sh.homeX < cxW ? lanes.leftX : lanes.rightX;
         }
-        // Keep homes on the lanes if the page was resized.
-        sh.homeX = sh.homeX < cxW ? lanes.leftX : lanes.rightX;
-        const ux = (hx - sh.homeX) / lanes.rx;
-        const uy = (hy - sh.homeY) / lanes.ry;
+        const ux = (hx - sh.homeX) / loopX;
+        const uy = (hy - sh.homeY) / loopY;
         const u = Math.hypot(ux, uy) || 1;
         // Tangent and radial directions of the ellipse, back in pixel space.
-        let tx = -uy * lanes.rx * sh.orbitDir;
-        let ty = ux * lanes.ry * sh.orbitDir;
+        let tx = -uy * loopX * sh.orbitDir;
+        let ty = ux * loopY * sh.orbitDir;
         const tl = Math.hypot(tx, ty) || 1;
         tx /= tl;
         ty /= tl;
@@ -604,7 +642,18 @@ export class World {
         }
       }
 
-      if (laned) {
+      if (pen) {
+        // Hard limit: the further past the pen's edge, the harder the pull back in.
+        const out = Math.max(pen.x0 - hx, hx - pen.x1, pen.y0 - hy, hy - pen.y1);
+        if (out > -L * 0.12) {
+          const w = clamp((out + L * 0.12) / (L * 0.3), 0, 1) * 4.5;
+          const toX = (pen.x0 + pen.x1) / 2 - hx;
+          const toY = (pen.y0 + pen.y1) / 2 - hy;
+          const d = Math.hypot(toX, toY) || 1;
+          dx += (toX / d) * w;
+          dy += (toY / d) * w;
+        }
+      } else if (laned) {
         // Keep the content column mostly clear: nudge sharks inside it out
         // toward their own side, so crossing sharks are carried through.
         if (lanes.open) {

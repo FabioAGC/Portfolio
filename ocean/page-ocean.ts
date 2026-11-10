@@ -7,7 +7,7 @@
  * content, and moved (in whole grid rows) whenever the viewport gets near
  * its edge. Each frame the world is drawn shifted by the window's offset.
  */
-import { AsciiRenderer, World, type SharkKind, type SharkSpec } from '../vendor/ascii-sharks';
+import { AsciiRenderer, World, type Pen, type SharkKind, type SharkSpec } from '../vendor/ascii-sharks';
 
 const STEP = 1 / 60;
 const MAX_STEPS = 4;
@@ -52,6 +52,8 @@ export class PageOcean {
   /** Offset of the canvas window from the top of the page, in CSS pixels. */
   private top = 0;
   private pointer = { x: 0, y: 0, active: false };
+  /** The open water above the hero's headline; two sharks live in it. */
+  private heroPen: Pen = { x0: 0, y0: 0, x1: 0, y1: 0 };
   private reducedMotion: MediaQueryList;
   private resizeObserver: ResizeObserver;
 
@@ -120,9 +122,23 @@ export class PageOcean {
     this.canvas.style.height = `${this.canvasHeight}px`;
     this.renderer.resize(width, this.canvasHeight, dpr);
 
+    // The hero's empty upper area: below the header, above the headline.
+    const heroHeight = Math.max(viewHeight, 560);
+    const inset = width >= 900 ? width * 0.12 : width * 0.04;
+    this.heroPen.x0 = inset;
+    this.heroPen.x1 = width - inset;
+    this.heroPen.y0 = 76;
+    this.heroPen.y1 = Math.max(260, heroHeight * 0.56);
+
     if (!this.world) {
       const fishCount = clamp(Math.round((width * pageHeight) / 5200), 85, 1400);
-      this.world = new World(roster(pageHeight), fishCount, { patrol: 'lanes', contentWidth: CONTENT_WIDTH });
+      const sharks: SharkSpec[] = [
+        // Kept in the hero so the top of the page is never empty.
+        { kind: 'classic', size: 0.78, pen: this.heroPen },
+        { kind: 'hammerhead', size: 0.62, pen: this.heroPen },
+        ...roster(pageHeight),
+      ];
+      this.world = new World(sharks, fishCount, { patrol: 'lanes', contentWidth: CONTENT_WIDTH });
     }
     this.world.resize(width, pageHeight, cw, ch);
     this.onMetrics?.({ width, height: pageHeight, cw, ch });
