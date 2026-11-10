@@ -304,7 +304,7 @@ main {
   position: absolute;
   inset: 0;
   /* Part of the background: well dimmed, so the pads never compete with the text. */
-  opacity: 0.5;
+  opacity: 0.4;
   animation: lilies-in 2.4s var(--ease-soft) both;
 }
 
