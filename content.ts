@@ -17,6 +17,8 @@ const img = (name: string) => `${import.meta.env.BASE_URL}images/${name}.webp`;
 
 const AVATAR = img('profile');
 
+const logo = (name: string) => `${import.meta.env.BASE_URL}logos/${name}.png`;
+
 const PROJECT_IMGS = {
   gymtrack: img('gymtrack'),
   speechai: img('speechai'),
@@ -57,6 +59,7 @@ const EN: SiteContent = {
         id: 3,
         role: 'Supply Chain Data Analyst',
         company: 'General Mills',
+        logo: logo('general-mills'),
         period: '2026 — Present',
         description:
           'I worked on digital transformation projects, dealing with computer vision and systems integration, providing support for the development and maintenance of supervisory systems. I took part in industrial automation and instrumentation activities, as well as in tests, proofs of concept (POCs), and prototyping. I implemented computer vision, artificial intelligence, machine learning, and data analysis at the foundational levels of the supply chain.',
@@ -65,6 +68,7 @@ const EN: SiteContent = {
         id: 2,
         role: 'Automation and Data Analyst',
         company: 'RW tech',
+        logo: logo('rw-tech'),
         period: '2025',
         description:
           'Executed data processing with Python and developed automations for internal company pipelines using n8n. In addition, I created interactive dashboards for business data analysis and KPIs using Looker Studio.',
@@ -73,6 +77,7 @@ const EN: SiteContent = {
         id: 1,
         role: 'Cybersecurity Researcher',
         company: 'INATEL — CxSC Telecom Lab',
+        logo: logo('inatel'),
         period: '2023 — 2024',
         description:
           'Researched vulnerabilities in relational and non-relational databases in web applications (mainly PHP). Studied attacks such as SQL Injection in a Docker environment with Kali Linux.',
@@ -197,6 +202,7 @@ const PT: SiteContent = {
         id: 3,
         role: 'Analista de Dados de Supply Chain',
         company: 'General Mills',
+        logo: logo('general-mills'),
         period: '2026 — Presente',
         description:
           'Atuei em projetos de transformação digital, trabalhando com visão computacional e integração de sistemas, prestando suporte ao desenvolvimento e à manutenção de sistemas supervisórios. Participei de atividades de automação industrial e instrumentação, bem como de testes, provas de conceito (POCs) e prototipagens. Realizei a implantação de soluções de visão computacional, inteligência artificial, machine learning e análise de dados nas bases da cadeia de suprimentos.',
@@ -205,6 +211,7 @@ const PT: SiteContent = {
         id: 2,
         role: 'Analista de Dados e Automação',
         company: 'RW tech',
+        logo: logo('rw-tech'),
         period: '2025',
         description:
           'Fui responsável pelo desenvolvimento de automações de processos internos corporativos utilizando a ferramenta n8n, integrando diferentes sistemas e reduzindo tarefas manuais de vários colaboradores, diminuindo o tempo de preenchimento de planilhas em até 80%. Além disso, criei dashboards interativos e relatórios dinâmicos para análise de indicadores de desempenho e dados empresariais no Looker Studio, aprimorando a tomada de decisão com KPIs claros e promovendo uma cultura orientada a dados dentro da empresa.',
@@ -213,6 +220,7 @@ const PT: SiteContent = {
         id: 1,
         role: 'Pesquisador de Cibersegurança',
         company: 'INATEL — CxSC Telecom Lab',
+        logo: logo('inatel'),
         period: '2023 — 2024',
         description:
           'Realizei um estudo aprofundado sobre vulnerabilidades em bancos de dados relacionais e não relacionais, com ênfase em aplicações web desenvolvidas em PHP. Durante a pesquisa, explorei e simulei ataques do tipo SQL Injection e outras técnicas de exploração em um ambiente controlado com Docker e Kali Linux, analisando vetores de risco, padrões de mitigação e boas práticas de segurança. O trabalho envolveu a configuração de containers para testes isolados, análise de logs e a implementação de contramedidas para fortalecer a segurança de sistemas web.',
