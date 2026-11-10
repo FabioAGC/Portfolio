@@ -37,10 +37,16 @@ const App: React.FC = () => {
       <Header name={profile.name} language={language} setLanguage={setLanguage} t={t.nav} />
 
       <main>
-        <Hero name={profile.name} title={profile.title} socials={profile.socials} t={t.hero} />
+        <Hero
+          name={profile.name}
+          title={profile.title}
+          avatarUrl={profile.avatarUrl}
+          socials={profile.socials}
+          t={t.hero}
+        />
 
         <Section id="about" index="01" label={t.headers.about}>
-          <AboutSection name={profile.name} about={profile.about} avatarUrl={profile.avatarUrl} />
+          <AboutSection about={profile.about} />
         </Section>
 
         <Section id="tech" index="02" label={t.headers.tech}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { SkillCategory } from '../types';
 import RevealOnScroll from './RevealOnScroll';
+import SkillIcon from './SkillIcon';
 
 interface SkillsSectionProps {
   skills: SkillCategory[];
@@ -15,6 +16,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({ skills }) => (
           <ul className="chips">
             {group.items.map((skill) => (
               <li key={skill} className="chip">
+                <SkillIcon name={skill} />
                 {skill}
               </li>
             ))}

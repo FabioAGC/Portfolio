@@ -43,6 +43,10 @@ const EN: SiteContent = {
       },
       { category: 'Databases', items: ['PostgreSQL', 'MySQL', 'Firebase', 'Supabase', 'AVEVA', 'SEEQ'] },
       {
+        category: 'AI & LLMs',
+        items: ['LLMs', 'MCP', 'RAG', 'Embeddings', 'Vector Databases', 'Fine-tuning', 'LoRA', 'AI Agents', 'Prompt Engineering'],
+      },
+      {
         category: 'Hard Skills',
         items: ['Data Analysis', 'System Design', 'Network Configuration', 'Cybersecurity', 'KPIs', 'AI', 'Machine Learning'],
       },
@@ -178,6 +182,10 @@ const PT: SiteContent = {
         items: ['Git', 'Docker', 'Postman', 'AWS', 'Vercel', 'Jest', 'Excel', 'Power BI', 'CI/CD', 'Linux'],
       },
       { category: 'Bancos de Dados', items: ['PostgreSQL', 'MySQL', 'Firebase', 'Supabase', 'AVEVA', 'SEEQ'] },
+      {
+        category: 'IA & LLMs',
+        items: ['LLMs', 'MCP', 'RAG', 'Embeddings', 'Bancos Vetoriais', 'Fine-tuning', 'LoRA', 'Agentes de IA', 'Engenharia de Prompt'],
+      },
       {
         category: 'Competências Técnicas',
         items: ['Análise de Dados', 'Design de Sistemas', 'Configuração de Redes', 'Cibersegurança', 'KPIs', 'IA', 'Machine Learning'],

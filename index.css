@@ -267,7 +267,44 @@ main,
 
 .hero__content {
   position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(24px, 4vw, 64px);
   padding-bottom: clamp(56px, 10vh, 104px);
+}
+
+.hero__text {
+  min-width: 0;
+}
+
+/* Round portrait with a thin offset ring, like a porthole onto the water. */
+.hero__portrait {
+  position: relative;
+  --size: clamp(220px, 27vw, 400px);
+  flex: none;
+  width: var(--size);
+  height: var(--size);
+  margin-bottom: 4px;
+  border-radius: 50%;
+  animation: rise 0.9s var(--ease) 0.3s both;
+}
+
+.hero__portrait::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero__portrait img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 52% 22%;
 }
 
 .hero__eyebrow {
@@ -279,7 +316,7 @@ main,
   margin-top: 12px;
   font-family: var(--font-serif);
   font-weight: 400;
-  font-size: clamp(3.4rem, 12vw, 10rem);
+  font-size: clamp(3.4rem, 9.5vw, 8.5rem);
   line-height: 0.92;
   letter-spacing: -0.02em;
   text-wrap: balance;
@@ -412,17 +449,6 @@ main,
 }
 
 /* ── About ───────────────────────────────────────────────────────────── */
-.about {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(200px, 300px);
-  gap: clamp(32px, 5vw, 72px);
-  align-items: start;
-}
-
-.about--no-image {
-  grid-template-columns: minmax(0, 1fr);
-}
-
 .about__text {
   max-width: 62ch;
   color: var(--muted);
@@ -438,25 +464,6 @@ main,
   line-height: 1.28;
   letter-spacing: -0.005em;
   color: var(--fg);
-}
-
-.portrait {
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  background: var(--surface);
-}
-
-.portrait img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(1) contrast(1.05);
-  transition: filter 0.6s var(--ease);
-}
-
-.portrait:hover img {
-  filter: none;
 }
 
 /* ── Skills ──────────────────────────────────────────────────────────── */
@@ -486,13 +493,36 @@ main,
 }
 
 .chip {
-  padding: 5px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 10px;
+  background: rgba(0, 0, 0, 0.35);
   border: 1px solid var(--line);
   font-family: var(--font-mono);
   font-size: 12.5px;
   letter-spacing: 0.02em;
   color: var(--muted);
   transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.chip__icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.chip__icon--invert {
+  filter: invert(1);
+}
+
+.chip__icon--lighten {
+  filter: brightness(1.9);
+}
+
+.chip__icon--glyph {
+  color: var(--accent);
 }
 
 .chip:hover {
@@ -573,12 +603,10 @@ main,
   height: 100%;
   object-fit: cover;
   object-position: top;
-  filter: grayscale(1) brightness(0.85);
-  transition: filter 0.6s var(--ease), transform 0.9s var(--ease);
+  transition: transform 0.9s var(--ease);
 }
 
 .project:hover .project__media img {
-  filter: none;
   transform: scale(1.02);
 }
 
@@ -782,12 +810,15 @@ main,
     display: none;
   }
 
-  .about {
-    grid-template-columns: minmax(0, 1fr);
+  .hero__content {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 36px;
   }
 
-  .about__figure {
-    max-width: 280px;
+  .hero__portrait {
+    --size: clamp(150px, 44vw, 200px);
+    margin-left: 12px;
   }
 
   .projects {
