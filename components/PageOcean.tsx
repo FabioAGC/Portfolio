@@ -102,7 +102,10 @@ const PageOcean: React.FC<PageOceanProps> = ({ pageRef }) => {
   return (
     <div className="ocean" aria-hidden="true">
       <canvas ref={oceanRef} className="ocean__water" />
-      {/* Under the veil, at the same depth as the sharks. */}
+      <div className="ocean__scrim" />
+      <div className="ocean__veil" />
+
+      {/* Just above the veil: behind all content, a little clearer than the sharks. */}
       {metrics && (
         <div className="lilies">
           {lilies.map((pad) => (
@@ -111,8 +114,6 @@ const PageOcean: React.FC<PageOceanProps> = ({ pageRef }) => {
         </div>
       )}
 
-      <div className="ocean__scrim" />
-      <div className="ocean__veil" />
 
       <canvas ref={ripplesRef} className="ocean__ripples" />
     </div>

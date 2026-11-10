@@ -159,8 +159,6 @@ const EN: SiteContent = {
       contact: 'Contact',
       contactTitle: "Let's talk.",
       contactText: 'The fastest way to reach me is by email.',
-      footerRights: 'All rights reserved.',
-      footerCredit: 'ASCII ocean by',
     },
   },
 };
@@ -301,8 +299,6 @@ const PT: SiteContent = {
       contact: 'Contato',
       contactTitle: 'Vamos conversar.',
       contactText: 'A forma mais rápida de falar comigo é por e-mail.',
-      footerRights: 'Todos os direitos reservados.',
-      footerCredit: 'Oceano ASCII por',
     },
   },
 };

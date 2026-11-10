@@ -8,7 +8,6 @@ import SkillsSection from './components/SkillsSection';
 import ExperienceSection from './components/ExperienceSection';
 import ProjectCard from './components/ProjectCard';
 import ContactSection from './components/ContactSection';
-import Footer from './components/Footer';
 import RevealOnScroll from './components/RevealOnScroll';
 import { CONTENT } from './content';
 import { Language } from './types';
@@ -63,8 +62,6 @@ const App: React.FC = () => {
           <ContactSection socials={profile.socials} t={t.headers} />
         </Section>
       </main>
-
-      <Footer name={profile.name} rightsText={t.headers.footerRights} creditText={t.headers.footerCredit} />
     </div>
   );
 };

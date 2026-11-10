@@ -290,8 +290,7 @@ button {
   font-family: var(--font-mono);
 }
 
-main,
-.footer {
+main {
   position: relative;
 }
 
@@ -304,7 +303,7 @@ main {
 .lilies {
   position: absolute;
   inset: 0;
-  /* Part of the background: dim, and under the veil like the sharks. */
+  /* Part of the background: well dimmed, so the pads never compete with the text. */
   opacity: 0.5;
   animation: lilies-in 2.4s var(--ease-soft) both;
 }
@@ -490,6 +489,10 @@ main {
   border-bottom: 1px solid var(--line);
 }
 
+.section:last-child {
+  border-bottom: 0;
+}
+
 .section__label {
   display: flex;
   align-items: baseline;
@@ -621,6 +624,35 @@ main {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+.timeline__head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Company logo, or its initials until a logo file is added. */
+.timeline__mark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--line-strong);
+  background: rgba(0, 0, 0, 0.45);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--fg);
+}
+
+.timeline__mark img {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  object-fit: contain;
 }
 
 .timeline__role {
@@ -788,33 +820,6 @@ main {
 }
 
 .contact__links a:hover {
-  color: var(--fg);
-}
-
-/* ── Footer ──────────────────────────────────────────────────────────── */
-.footer {
-  padding-block: 32px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--faint);
-}
-
-.footer__inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 8px 24px;
-}
-
-.footer a {
-  color: var(--muted);
-  border-bottom: 1px solid var(--line-strong);
-  transition: color 0.4s var(--ease);
-}
-
-.footer a:hover {
   color: var(--fg);
 }
 

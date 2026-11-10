@@ -33,6 +33,8 @@ export interface JobExperience {
   id: number;
   role: string;
   company: string;
+  /** Path to the company's logo; its initials are shown when unset. */
+  logo?: string;
   period: string;
   description: string;
 }
@@ -70,8 +72,6 @@ export interface Translations {
     contact: string;
     contactTitle: string;
     contactText: string;
-    footerRights: string;
-    footerCredit: string;
   };
 }
 
