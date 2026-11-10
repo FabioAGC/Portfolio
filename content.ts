@@ -12,13 +12,18 @@ const SOCIALS: SocialLinks = {
   serializd: 'https://www.serializd.com/user/Fabitos/profile',
 };
 
-const AVATAR = 'https://drive.google.com/thumbnail?id=1rRG2PLLmNNBcm30P_CT8zBtD2joXsanp&sz=w1000';
+// Served from public/images; BASE_URL keeps the paths valid under any deploy base.
+const img = (name: string) => `${import.meta.env.BASE_URL}images/${name}.webp`;
+
+const AVATAR = img('profile');
 
 const PROJECT_IMGS = {
-  gymtrack: 'https://drive.google.com/thumbnail?id=1d-BLyU4MZfSLyJQr9Ej6_CYnfYt8ATp1&sz=w1000',
-  speechai: 'https://drive.google.com/thumbnail?id=1PW90M8y_mMfsi8sds9KUciVcnYxcd9tG&sz=w1000',
-  inatelRewards: 'https://drive.google.com/thumbnail?id=1CSUHmjmLTJ6SAj9l9mNcsdz9oH6Lhk9R&sz=w1000',
-  ecosense: 'https://drive.google.com/thumbnail?id=1VZs0_Zuubbm6Hu7PwYeMns8ppLBSsQBq&sz=w1000',
+  gymtrack: img('gymtrack'),
+  speechai: img('speechai'),
+  inatelRewards: img('inatel-rewards'),
+  ecosense: img('ecosense'),
+  basquiart: img('basquiart'),
+  smartreserve: img('smartreserve'),
 };
 
 const EN: SiteContent = {
@@ -86,6 +91,7 @@ const EN: SiteContent = {
       description:
         'An intelligent speech assistance system designed to help doctors and patients with pronunciation difficulties through personalized exercises and AI-based speech analysis.',
       imageUrl: PROJECT_IMGS.speechai,
+      imagePosition: 'center',
       tags: ['Nest.js', 'OpenAI API', 'n8n', 'Postgres', 'React', 'Vite', 'Prisma'],
       link: 'https://github.com/FABIOAGC',
     },
@@ -105,6 +111,24 @@ const EN: SiteContent = {
         'An app designed for Inatel students to redeem prizes at the cafeteria and library based on their grades and attendance in classes and lectures.',
       imageUrl: PROJECT_IMGS.inatelRewards,
       tags: ['Flutter', 'Firebase'],
+      link: 'https://github.com/FABIOAGC',
+    },
+    {
+      id: 5,
+      title: 'BasquiArt',
+      description:
+        'A social network for art collectives, where artists gather in groups, share their work and interact with the community. It features category-based ratings, a personalized feed and a built-in bidding system that connects creators and collectors.',
+      imageUrl: PROJECT_IMGS.basquiart,
+      tags: ['JWT', 'bcrypt', 'Pytest', 'Playwright', 'Accessibility'],
+      link: 'https://github.com/FABIOAGC',
+    },
+    {
+      id: 6,
+      title: 'SmartReserve',
+      description:
+        'A web application for managing reservations of institutional resources in schools. With enrollment-based login and a REST API, it handles rooms, labs and equipment, automatically prevents scheduling conflicts and centralizes every reservation in a single dashboard.',
+      imageUrl: PROJECT_IMGS.smartreserve,
+      tags: ['REST API', 'Jest', 'Playwright', 'Jenkins'],
       link: 'https://github.com/FABIOAGC',
     },
   ],
@@ -206,6 +230,7 @@ const PT: SiteContent = {
       description:
         'Sistema inteligente de assistência à fala desenvolvido para auxiliar médicos e pacientes com dificuldades de pronúncia através de exercícios personalizados e análise de fala com IA.',
       imageUrl: PROJECT_IMGS.speechai,
+      imagePosition: 'center',
       tags: ['Nest.js', 'OpenAI API', 'n8n', 'Postgres', 'React', 'Vite', 'Prisma'],
       link: 'https://github.com/FABIOAGC',
     },
@@ -225,6 +250,24 @@ const PT: SiteContent = {
         'Aplicativo feito para os estudantes do Inatel resgatarem prêmios na cantina e na biblioteca com base nas notas e na frequência em aulas e palestras.',
       imageUrl: PROJECT_IMGS.inatelRewards,
       tags: ['Flutter', 'Firebase'],
+      link: 'https://github.com/FABIOAGC',
+    },
+    {
+      id: 5,
+      title: 'BasquiArt',
+      description:
+        'Rede social voltada para coletivos de arte, onde artistas se reúnem em grupos, compartilham obras e interagem com a comunidade. Conta com avaliação por categorias, feed personalizado e um módulo de lances integrado que conecta criadores e colecionadores.',
+      imageUrl: PROJECT_IMGS.basquiart,
+      tags: ['JWT', 'bcrypt', 'Pytest', 'Playwright', 'Acessibilidade'],
+      link: 'https://github.com/FABIOAGC',
+    },
+    {
+      id: 6,
+      title: 'SmartReserve',
+      description:
+        'Aplicação web para gerenciamento de reservas de recursos institucionais em ambientes educacionais. Com autenticação por matrícula e uma API REST, controla salas, laboratórios e equipamentos, previne conflitos de horário automaticamente e centraliza todas as reservas em um único painel.',
+      imageUrl: PROJECT_IMGS.smartreserve,
+      tags: ['API REST', 'Jest', 'Playwright', 'Jenkins'],
       link: 'https://github.com/FABIOAGC',
     },
   ],

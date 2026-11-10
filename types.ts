@@ -5,6 +5,8 @@ export interface Project {
   title: string;
   description: string;
   imageUrl: string;
+  /** CSS object-position for the cropped thumbnail; defaults to the top. */
+  imagePosition?: string;
   tags: string[];
   link?: string;
 }

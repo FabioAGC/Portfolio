@@ -21,6 +21,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
             src={project.imageUrl}
             alt={project.title}
             loading="lazy"
+            style={project.imagePosition ? { objectPosition: project.imagePosition } : undefined}
             onError={() => setImageFailed(true)}
           />
         )}

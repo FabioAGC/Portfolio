@@ -1,7 +1,5 @@
 import React from 'react';
 import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
-import { AsciiOcean } from '../vendor/ascii-sharks/react';
-import type { SharkSpec } from '../vendor/ascii-sharks';
 import { SocialLinks, Translations } from '../types';
 
 interface HeroProps {
@@ -11,16 +9,8 @@ interface HeroProps {
   t: Translations['hero'];
 }
 
-// The roster is fixed for the life of the canvas, so keep it at module scope.
-const SHARKS: SharkSpec[] = [
-  { kind: 'classic', size: 1 },
-  { kind: 'hammerhead', size: 0.8 },
-  { kind: 'thresher', size: 0.68 },
-];
-
 const Hero: React.FC<HeroProps> = ({ name, title, socials, t }) => (
   <section id="home" className="hero">
-    <AsciiOcean className="hero__ocean" sharks={SHARKS} />
     <div className="hero__scrim" aria-hidden="true" />
 
     <div className="container hero__content">

@@ -9,8 +9,17 @@ import ProjectCard from './components/ProjectCard';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import RevealOnScroll from './components/RevealOnScroll';
+import { AsciiOcean } from './vendor/ascii-sharks/react';
+import type { SharkSpec } from './vendor/ascii-sharks';
 import { CONTENT } from './content';
 import { Language } from './types';
+
+// The roster is fixed for the life of the canvas, so keep it at module scope.
+const SHARKS: SharkSpec[] = [
+  { kind: 'classic', size: 1 },
+  { kind: 'hammerhead', size: 0.8 },
+  { kind: 'thresher', size: 0.68 },
+];
 
 const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>('pt');
@@ -22,6 +31,9 @@ const App: React.FC = () => {
 
   return (
     <>
+      {/* Fixed behind the whole page; sections sit on a translucent veil. */}
+      <AsciiOcean className="ocean" sharks={SHARKS} />
+
       <Header name={profile.name} language={language} setLanguage={setLanguage} t={t.nav} />
 
       <main>
