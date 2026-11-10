@@ -1,24 +1,28 @@
 import React from 'react';
+import type { SharkSpec } from '../vendor/ascii-sharks';
+import OceanBackdrop from './OceanBackdrop';
 import RevealOnScroll from './RevealOnScroll';
 
 interface SectionProps {
   id: string;
   index: string;
   label: string;
+  sharks: SharkSpec[];
   children: React.ReactNode;
 }
 
-/** Editorial section: a numbered label in the left rail, content on the right. */
-const Section: React.FC<SectionProps> = ({ id, index, label, children }) => (
+/** A numbered section with its own stretch of ocean behind the content. */
+const Section: React.FC<SectionProps> = ({ id, index, label, sharks, children }) => (
   <section id={id} className="section" aria-labelledby={`${id}-title`}>
-    <div className="container section__grid">
-      <RevealOnScroll className="section__rail">
+    <OceanBackdrop sharks={sharks} />
+    <div className="container section__inner">
+      <RevealOnScroll>
         <h2 id={`${id}-title`} className="section__label">
           <span className="section__index">{index}</span>
           {label}
         </h2>
       </RevealOnScroll>
-      <div className="section__body">{children}</div>
+      {children}
     </div>
   </section>
 );

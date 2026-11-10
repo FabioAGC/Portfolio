@@ -9,17 +9,47 @@ import ProjectCard from './components/ProjectCard';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import RevealOnScroll from './components/RevealOnScroll';
-import { AsciiOcean } from './vendor/ascii-sharks/react';
 import type { SharkSpec } from './vendor/ascii-sharks';
 import { CONTENT } from './content';
 import { Language } from './types';
 
-// The roster is fixed for the life of the canvas, so keep it at module scope.
-const SHARKS: SharkSpec[] = [
-  { kind: 'classic', size: 1 },
-  { kind: 'hammerhead', size: 0.8 },
-  { kind: 'thresher', size: 0.68 },
-];
+// Which sharks swim behind each part of the page. Rosters are fixed for the
+// life of a canvas, so they live at module scope.
+const SHARKS: Record<string, SharkSpec[]> = {
+  home: [
+    { kind: 'classic', size: 1 },
+    { kind: 'hammerhead', size: 0.82 },
+    { kind: 'thresher', size: 0.7 },
+    { kind: 'mako', size: 0.6 },
+  ],
+  about: [
+    { kind: 'mako', size: 1 },
+    { kind: 'nurse', size: 0.8 },
+    { kind: 'zebra', size: 0.66 },
+  ],
+  tech: [
+    { kind: 'tiger', size: 1 },
+    { kind: 'classic', size: 0.8 },
+    { kind: 'greathammer', size: 0.7 },
+  ],
+  experience: [
+    { kind: 'greathammer', size: 1 },
+    { kind: 'thresher', size: 0.85 },
+    { kind: 'classic', size: 0.72 },
+    { kind: 'nurse', size: 0.62 },
+  ],
+  projects: [
+    { kind: 'hammerhead', size: 1 },
+    { kind: 'tiger', size: 0.86 },
+    { kind: 'zebra', size: 0.74 },
+    { kind: 'mako', size: 0.64 },
+  ],
+  contact: [
+    { kind: 'classic', size: 1 },
+    { kind: 'thresher', size: 0.78 },
+    { kind: 'hammerhead', size: 0.64 },
+  ],
+};
 
 const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>('pt');
@@ -31,9 +61,6 @@ const App: React.FC = () => {
 
   return (
     <>
-      {/* Fixed behind the whole page; sections sit on a translucent veil. */}
-      <AsciiOcean className="ocean" sharks={SHARKS} />
-
       <Header name={profile.name} language={language} setLanguage={setLanguage} t={t.nav} />
 
       <main>
@@ -42,32 +69,33 @@ const App: React.FC = () => {
           title={profile.title}
           avatarUrl={profile.avatarUrl}
           socials={profile.socials}
+          sharks={SHARKS.home}
           t={t.hero}
         />
 
-        <Section id="about" index="01" label={t.headers.about}>
+        <Section id="about" sharks={SHARKS.about} index="01" label={t.headers.about}>
           <AboutSection about={profile.about} />
         </Section>
 
-        <Section id="tech" index="02" label={t.headers.tech}>
+        <Section id="tech" sharks={SHARKS.tech} index="02" label={t.headers.tech}>
           <SkillsSection skills={profile.skills} />
         </Section>
 
-        <Section id="experience" index="03" label={t.headers.experience}>
+        <Section id="experience" sharks={SHARKS.experience} index="03" label={t.headers.experience}>
           <ExperienceSection experience={profile.experience} />
         </Section>
 
-        <Section id="projects" index="04" label={t.headers.projects}>
+        <Section id="projects" sharks={SHARKS.projects} index="04" label={t.headers.projects}>
           <div className="projects">
             {projects.map((project, i) => (
-              <RevealOnScroll key={project.id} delay={(i % 2) * 100}>
+              <RevealOnScroll key={project.id} delay={(i % 3) * 80}>
                 <ProjectCard project={project} index={i} />
               </RevealOnScroll>
             ))}
           </div>
         </Section>
 
-        <Section id="contact" index="05" label={t.headers.contact}>
+        <Section id="contact" sharks={SHARKS.contact} index="05" label={t.headers.contact}>
           <ContactSection socials={profile.socials} t={t.headers} />
         </Section>
       </main>

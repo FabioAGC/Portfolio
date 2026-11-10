@@ -61,7 +61,6 @@ export interface Translations {
   hero: {
     viewProjects: string;
     contact: string;
-    hint: string;
   };
   headers: {
     about: string;

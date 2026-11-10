@@ -150,7 +150,6 @@ const EN: SiteContent = {
     hero: {
       viewProjects: 'View projects',
       contact: 'Get in touch',
-      hint: 'Move the cursor · click to stir the water',
     },
     headers: {
       about: 'About',
@@ -293,7 +292,6 @@ const PT: SiteContent = {
     hero: {
       viewProjects: 'Ver projetos',
       contact: 'Entrar em contato',
-      hint: 'Mova o cursor · clique para agitar a água',
     },
     headers: {
       about: 'Sobre',
