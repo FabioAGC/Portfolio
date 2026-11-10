@@ -1,3 +1,5 @@
+export type Language = 'en' | 'pt';
+
 export interface Project {
   id: number;
   title: string;
@@ -41,4 +43,39 @@ export interface UserProfile {
   socials: SocialLinks;
   skills: SkillCategory[];
   experience: JobExperience[];
+}
+
+export interface Translations {
+  nav: {
+    about: string;
+    tech: string;
+    experience: string;
+    projects: string;
+    contact: string;
+    menu: string;
+    close: string;
+    language: string;
+  };
+  hero: {
+    viewProjects: string;
+    contact: string;
+    hint: string;
+  };
+  headers: {
+    about: string;
+    tech: string;
+    experience: string;
+    projects: string;
+    contact: string;
+    contactTitle: string;
+    contactText: string;
+    footerRights: string;
+    footerCredit: string;
+  };
+}
+
+export interface SiteContent {
+  profile: UserProfile;
+  projects: Project[];
+  translations: Translations;
 }

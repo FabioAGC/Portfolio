@@ -2,51 +2,37 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface RevealOnScrollProps {
   children: React.ReactNode;
-  delay?: number; // Delay in ms
-  threshold?: number; // Intersection threshold (0 to 1)
+  /** Delay in ms. */
+  delay?: number;
+  className?: string;
 }
 
-const RevealOnScroll: React.FC<RevealOnScrollProps> = ({ children, delay = 0, threshold = 0.1 }) => {
+/** Fades content in once, the first time it scrolls into view. */
+const RevealOnScroll: React.FC<RevealOnScrollProps> = ({ children, delay = 0, className = '' }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Update state based on intersection status to allow re-appearing
-        setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
       },
-      {
-        threshold: threshold,
-        // Trigger slightly before the bottom to feel responsive
-        rootMargin: '0px 0px -50px 0px', 
-      }
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' },
     );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, [threshold]);
-
-  const style = {
-    transitionDelay: `${delay}ms`,
-  };
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div
       ref={ref}
-      style={style}
-      className={`transition-all duration-700 ease-out transform will-change-transform ${
-        isVisible 
-          ? 'opacity-100 translate-y-0 filter blur-0 scale-100' 
-          : 'opacity-0 translate-y-12 filter blur-sm scale-95'
-      }`}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`reveal ${isVisible ? 'is-visible' : ''} ${className}`}
     >
       {children}
     </div>

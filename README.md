@@ -1,20 +1,25 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Fabio Cruvinel — Portfolio
 
-# Run and deploy your AI Studio app
+Personal portfolio built with React, TypeScript and Vite. The hero is a live
+ASCII ocean rendered on a canvas.
 
-This contains everything you need to run your app locally.
+## Run locally
 
-View your app in AI Studio: https://ai.studio/apps/ece861dd-9c76-4718-a987-264cc209ced4
+**Prerequisites:** Node.js
 
-## Run Locally
+```sh
+npm install
+npm run dev
+```
 
-**Prerequisites:**  Node.js
+`npm run build` outputs the production site to `dist/`.
 
+## Editing content
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+All text (English and Portuguese), links and images live in `content.ts`.
+Styles are in `index.css`.
+
+## Credits
+
+The ASCII ocean is [ascii-sharks](https://github.com/stackedlol/ascii-sharks)
+by drewdi, MIT licensed and vendored in `vendor/ascii-sharks/`.

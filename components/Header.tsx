@@ -1,195 +1,125 @@
-import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, Terminal, Menu, X } from 'lucide-react';
-import { SocialLinks } from '../types';
+import React, { useEffect, useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { Language, Translations } from '../types';
 
 interface HeaderProps {
-  socials: SocialLinks;
-  language: 'en' | 'pt';
-  setLanguage: (lang: 'en' | 'pt') => void;
-  translations: {
-    home: string;
-    about: string;
-    tech: string;
-    experience: string;
-    projects: string;
-  };
+  name: string;
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: Translations['nav'];
 }
 
-const Header: React.FC<HeaderProps> = ({ socials, language, setLanguage, translations }) => {
+const SECTION_IDS = ['about', 'tech', 'experience', 'projects', 'contact'] as const;
+
+const Header: React.FC<HeaderProps> = ({ name, language, setLanguage, t }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-      
-      const sections = ['home', 'tech', 'experience', 'projects'];
-      
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top >= -100 && rect.top <= 200) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const targetId = href.replace('#', '');
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
+  // Highlight the section crossing the upper part of the viewport.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        }
+      },
+      { rootMargin: '-30% 0px -65% 0px' },
+    );
+    const home = document.getElementById('home');
+    if (home) observer.observe(home);
+    for (const id of SECTION_IDS) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
     }
-  };
+    return () => observer.disconnect();
+  }, []);
 
-  const navLinks = [
-    { name: translations.home, href: '#home', label: translations.home },
-    { name: translations.tech, href: '#tech', label: translations.tech },
-    { name: translations.experience, href: '#experience', label: translations.experience },
-    { name: translations.projects, href: '#projects', label: translations.projects },
-  ];
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    if (!isMenuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [isMenuOpen]);
+
+  const links = SECTION_IDS.map((id, i) => ({
+    id,
+    index: String(i + 1).padStart(2, '0'),
+    label: t[id],
+  }));
+
+  const languageToggle = (
+    <div className="lang" role="group" aria-label={t.language}>
+      {(['pt', 'en'] as const).map((lang) => (
+        <button
+          key={lang}
+          type="button"
+          className="lang__option"
+          aria-pressed={language === lang}
+          onClick={() => setLanguage(lang)}
+        >
+          {lang.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-primary/90 backdrop-blur-md border-b border-white/5 py-3' 
-          : 'bg-transparent py-5'
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-        
-        {/* Logo Area */}
-        <a 
-          href="#home" 
-          className="flex items-center space-x-2 group"
-          onClick={(e) => handleNavClick(e, '#home')}
-        >
-          <div className="p-2 rounded-lg bg-slate-900 border border-slate-800 group-hover:border-accent/50 transition-colors duration-300">
-             <Terminal size={20} className="text-accent" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-display font-bold text-lg leading-none text-white tracking-tight">Dev Fabio Cruvinel</span>
-          </div>
+    <header className={`header ${isScrolled || isMenuOpen ? 'header--solid' : ''}`}>
+      <div className="container header__inner">
+        <a className="header__brand" href="#home" onClick={() => setIsMenuOpen(false)}>
+          {name}
         </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-1">
-          <div className="flex items-center bg-slate-900/50 rounded-full border border-white/5 p-1 backdrop-blur-sm">
-            {navLinks.map((link) => (
-              <a 
-                key={`${link.href}-${link.name}`} 
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className={`
-                  relative px-4 py-1.5 rounded-full text-sm font-mono transition-all duration-300 cursor-pointer
-                  ${activeSection === link.href.substring(1) 
-                    ? 'text-white bg-white/10 shadow-sm' 
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
-                  }
-                `}
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
+        <nav className="header__nav" aria-label="Primary">
+          {links.map((link) => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              aria-current={activeSection === link.id ? 'true' : undefined}
+            >
+              {link.label}
+            </a>
+          ))}
         </nav>
 
-        {/* Desktop Actions (Language Only) */}
-        <div className="hidden md:flex items-center space-x-4">
-          {/* Language Slider */}
-          <div className="flex items-center bg-slate-900/50 rounded-lg p-1 border border-white/5 relative z-50">
-            <button
-              type="button"
-              onClick={() => setLanguage('pt')}
-              className={`px-2 py-1 rounded text-xs font-bold transition-all duration-300 cursor-pointer ${
-                language === 'pt' ? 'bg-white/10 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'
-              }`}
-            >
-              PT
-            </button>
-            <button
-              type="button"
-              onClick={() => setLanguage('en')}
-              className={`px-2 py-1 rounded text-xs font-bold transition-all duration-300 cursor-pointer ${
-                language === 'en' ? 'bg-white/10 text-white shadow-sm' : 'text-slate-500 hover:text-slate-300'
-              }`}
-            >
-              US
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu Toggle */}
-        <div className="flex items-center gap-4 md:hidden">
-          {/* Mobile Language Toggle */}
-          <div className="flex items-center bg-slate-900/50 rounded-lg p-1 border border-white/5">
-            <button
-              type="button"
-              onClick={() => setLanguage('pt')}
-              className={`px-2 py-1 rounded text-xs font-bold transition-all ${
-                language === 'pt' ? 'bg-white/10 text-white' : 'text-slate-500'
-              }`}
-            >
-              PT
-            </button>
-            <button
-              type="button"
-              onClick={() => setLanguage('en')}
-              className={`px-2 py-1 rounded text-xs font-bold transition-all ${
-                language === 'en' ? 'bg-white/10 text-white' : 'text-slate-500'
-              }`}
-            >
-              US
-            </button>
-          </div>
-
-          <button 
+        <div className="header__actions">
+          {languageToggle}
+          <button
             type="button"
-            className="p-2 text-slate-300 hover:text-white bg-slate-900/50 rounded-md border border-white/5"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="header__menu-button"
+            aria-label={isMenuOpen ? t.close : t.menu}
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen((open) => !open)}
           >
-            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            {isMenuOpen ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Navigation Dropdown */}
-      <div 
-        className={`md:hidden absolute top-full left-0 right-0 bg-primary/95 backdrop-blur-xl border-b border-white/10 overflow-hidden transition-all duration-300 ease-in-out ${
-          isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
-        }`}
-      >
-        <div className="p-4 space-y-2">
-          {navLinks.map((link) => (
-            <a 
-              key={link.href}
-              href={link.href}
-              className="block px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 font-mono border border-transparent hover:border-white/5 transition-all cursor-pointer"
-              onClick={(e) => handleNavClick(e, link.href)}
-            >
-              <span className="text-accent opacity-50 mr-2">&gt;</span>
+      {isMenuOpen && (
+        <nav className="mobile-menu" aria-label="Mobile">
+          {links.map((link) => (
+            <a key={link.id} href={`#${link.id}`} onClick={() => setIsMenuOpen(false)}>
+              <span>{link.index}</span>
               {link.label}
             </a>
           ))}
-          <div className="h-px bg-white/10 my-4 mx-4"></div>
-          <div className="flex justify-center gap-6 pb-4">
-             <a href={socials.github} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white"><Github size={24}/></a>
-             <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white"><Linkedin size={24}/></a>
-             <a href={`mailto:${socials.email}`} className="text-slate-400 hover:text-white"><Mail size={24}/></a>
-          </div>
-        </div>
-      </div>
+        </nav>
+      )}
     </header>
   );
 };

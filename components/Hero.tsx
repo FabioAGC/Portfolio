@@ -1,0 +1,64 @@
+import React from 'react';
+import { ArrowDown, Github, Linkedin, Mail } from 'lucide-react';
+import { AsciiOcean } from '../vendor/ascii-sharks/react';
+import type { SharkSpec } from '../vendor/ascii-sharks';
+import { SocialLinks, Translations } from '../types';
+
+interface HeroProps {
+  name: string;
+  title: string;
+  socials: SocialLinks;
+  t: Translations['hero'];
+}
+
+// The roster is fixed for the life of the canvas, so keep it at module scope.
+const SHARKS: SharkSpec[] = [
+  { kind: 'classic', size: 1 },
+  { kind: 'hammerhead', size: 0.8 },
+  { kind: 'thresher', size: 0.68 },
+];
+
+const Hero: React.FC<HeroProps> = ({ name, title, socials, t }) => (
+  <section id="home" className="hero">
+    <AsciiOcean className="hero__ocean" sharks={SHARKS} />
+    <div className="hero__scrim" aria-hidden="true" />
+
+    <div className="container hero__content">
+      <p className="eyebrow hero__eyebrow">{title}</p>
+      <h1 className="hero__name">{name}</h1>
+
+      <div className="hero__actions">
+        <a className="button button--solid" href="#projects">
+          {t.viewProjects}
+          <ArrowDown size={16} strokeWidth={1.75} aria-hidden="true" />
+        </a>
+        <a className="button" href="#contact">
+          {t.contact}
+        </a>
+        <ul className="hero__socials">
+          <li>
+            <a href={socials.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <Github size={20} strokeWidth={1.5} />
+            </a>
+          </li>
+          <li>
+            <a href={socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <Linkedin size={20} strokeWidth={1.5} />
+            </a>
+          </li>
+          <li>
+            <a href={`mailto:${socials.email}`} aria-label="Email">
+              <Mail size={20} strokeWidth={1.5} />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <p className="hero__hint" aria-hidden="true">
+      {t.hint}
+    </p>
+  </section>
+);
+
+export default Hero;
