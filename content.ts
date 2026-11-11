@@ -71,7 +71,7 @@ const EN: SiteContent = {
         logo: logo('rw-tech'),
         period: '2025',
         description:
-          'Executed data processing with Python and developed automations for internal company pipelines using n8n. In addition, I created interactive dashboards for business data analysis and KPIs using Looker Studio.',
+          'I was responsible for developing automations for internal business processes using n8n, integrating different systems and cutting the manual work of many colleagues, reducing the time spent filling in spreadsheets by up to 80%. I also built interactive dashboards and dynamic reports in Looker Studio to analyze performance indicators and business data, improving decision-making with clear KPIs and fostering a data-driven culture within the company.',
       },
       {
         id: 1,
@@ -80,7 +80,7 @@ const EN: SiteContent = {
         logo: logo('cxsc'),
         period: '2023 — 2024',
         description:
-          'Researched vulnerabilities in relational and non-relational databases in web applications (mainly PHP). Studied attacks such as SQL Injection in a Docker environment with Kali Linux.',
+          'I carried out an in-depth study of vulnerabilities in relational and non-relational databases, focusing on web applications built with PHP. During the research, I explored and simulated SQL Injection attacks and other exploitation techniques in a controlled environment with Docker and Kali Linux, analyzing risk vectors, mitigation patterns and security best practices. The work involved setting up containers for isolated testing, analyzing logs and implementing countermeasures to strengthen the security of web systems.',
       },
     ],
   },
