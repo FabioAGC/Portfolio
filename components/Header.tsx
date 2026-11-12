@@ -9,7 +9,7 @@ interface HeaderProps {
   t: Translations['nav'];
 }
 
-const SECTION_IDS = ['about', 'tech', 'experience', 'projects', 'contact'] as const;
+const SECTION_IDS = ['about', 'tech', 'experience', 'education', 'projects', 'contact'] as const;
 
 const Header: React.FC<HeaderProps> = ({ name, language, setLanguage, t }) => {
   const [isScrolled, setIsScrolled] = useState(false);

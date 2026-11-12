@@ -31,6 +31,7 @@ const App: React.FC = () => {
         <Hero
           name={profile.name}
           title={profile.title}
+          tagline={profile.tagline}
           avatarUrl={profile.avatarUrl}
           socials={profile.socials}
           t={t.hero}
@@ -48,17 +49,21 @@ const App: React.FC = () => {
           <ExperienceSection experience={profile.experience} />
         </Section>
 
-        <Section id="projects" index="04" label={t.headers.projects}>
+        <Section id="education" index="04" label={t.headers.education}>
+          <ExperienceSection experience={profile.education} />
+        </Section>
+
+        <Section id="projects" index="05" label={t.headers.projects}>
           <div className="projects">
             {projects.map((project, i) => (
               <RevealOnScroll key={project.id} delay={(i % 3) * 80}>
-                <ProjectCard project={project} index={i} />
+                <ProjectCard project={project} index={i} codeLabel={t.headers.viewCode} />
               </RevealOnScroll>
             ))}
           </div>
         </Section>
 
-        <Section id="contact" index="05" label={t.headers.contact}>
+        <Section id="contact" index="06" label={t.headers.contact}>
           <ContactSection socials={profile.socials} t={t.headers} />
         </Section>
       </main>

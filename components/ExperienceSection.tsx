@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { JobExperience } from '../types';
 import RevealOnScroll from './RevealOnScroll';
 
@@ -46,6 +47,12 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experience }) => 
               </div>
             </div>
             <p className="timeline__description">{job.description}</p>
+            {job.link && (
+              <a className="text-link" href={job.link.href} target="_blank" rel="noopener noreferrer">
+                {job.link.label}
+                <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden="true" />
+              </a>
+            )}
           </div>
         </RevealOnScroll>
       </li>

@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { Project } from '../types';
 
 interface ProjectCardProps {
   project: Project;
   index: number;
+  /** Label for the link to the project's code. */
+  codeLabel: string;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, codeLabel }) => {
   const [imageFailed, setImageFailed] = useState(false);
 
   return (
@@ -36,6 +39,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
             <li key={tag}>{tag}</li>
           ))}
         </ul>
+        {project.link && (
+          <a className="text-link" href={project.link} target="_blank" rel="noopener noreferrer">
+            {codeLabel}
+            <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden="true" />
+          </a>
+        )}
       </div>
     </article>
   );

@@ -38,16 +38,21 @@ export interface JobExperience {
   logo?: string;
   period: string;
   description: string;
+  /** Optional link shown under the description, e.g. a thesis repository. */
+  link?: { label: string; href: string };
 }
 
 export interface UserProfile {
   name: string;
   title: string;
+  /** One line on what sets this person apart, shown under the name. */
+  tagline: string;
   about: string;
   avatarUrl: string;
   socials: SocialLinks;
   skills: SkillCategory[];
   experience: JobExperience[];
+  education: JobExperience[];
 }
 
 export interface Translations {
@@ -55,6 +60,7 @@ export interface Translations {
     about: string;
     tech: string;
     experience: string;
+    education: string;
     projects: string;
     contact: string;
     menu: string;
@@ -69,7 +75,9 @@ export interface Translations {
     about: string;
     tech: string;
     experience: string;
+    education: string;
     projects: string;
+    viewCode: string;
     contact: string;
     contactTitle: string;
     contactText: string;

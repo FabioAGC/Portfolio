@@ -416,6 +416,16 @@ main {
   animation: rise 1.3s var(--ease) 0.2s both;
 }
 
+.hero__tagline {
+  margin-top: 18px;
+  max-width: 34ch;
+  font-size: clamp(1.05rem, 1.55vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--muted);
+  text-wrap: pretty;
+  animation: rise 1.3s var(--ease) 0.28s both;
+}
+
 .hero__actions {
   margin-top: clamp(28px, 4vh, 44px);
   display: flex;
@@ -491,6 +501,11 @@ main {
 
 .section:last-child {
   border-bottom: 0;
+}
+
+/* A single entry: keep the section short. */
+#education {
+  padding-block: clamp(56px, 7vw, 88px);
 }
 
 .section__label {
@@ -778,6 +793,27 @@ main {
 .project__tags li + li::before {
   content: '·';
   margin-inline: 8px;
+}
+
+/* Small inline link with an arrow: project code, thesis repository. */
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding-block: 4px;
+  border-bottom: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg);
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+
+.text-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* ── Contact ─────────────────────────────────────────────────────────── */

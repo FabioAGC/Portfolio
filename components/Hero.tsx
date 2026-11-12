@@ -5,12 +5,13 @@ import { SocialLinks, Translations } from '../types';
 interface HeroProps {
   name: string;
   title: string;
+  tagline: string;
   avatarUrl: string;
   socials: SocialLinks;
   t: Translations['hero'];
 }
 
-const Hero: React.FC<HeroProps> = ({ name, title, avatarUrl, socials, t }) => {
+const Hero: React.FC<HeroProps> = ({ name, title, tagline, avatarUrl, socials, t }) => {
   const [imageFailed, setImageFailed] = useState(false);
 
   return (
@@ -19,6 +20,7 @@ const Hero: React.FC<HeroProps> = ({ name, title, avatarUrl, socials, t }) => {
         <div className="hero__text">
           <p className="eyebrow hero__eyebrow">{title}</p>
           <h1 className="hero__name">{name}</h1>
+          <p className="hero__tagline">{tagline}</p>
 
           <div className="hero__actions">
             <a className="button button--solid" href="#projects">
