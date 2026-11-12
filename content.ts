@@ -92,7 +92,13 @@ const EN: SiteContent = {
         logo: logo('inatel'),
         period: '2026',
         description:
-          'Thesis on vector databases. Coursework in software engineering, distributed systems, databases, operating systems and software quality.',
+          'Coursework in software engineering, distributed systems, databases, operating systems and software quality.',
+        highlight: {
+          label: 'Thesis',
+          title: 'Adapted Relational Databases vs Native Vector Databases',
+          summary:
+            'An experimental comparison between databases adapted for vector search (PostgreSQL + pgvector, Cassandra 5.0, Redis + RediSearch) and native vector databases (ChromaDB, Weaviate, Qdrant), measuring search quality, performance, operational cost and robustness under equivalent HNSW indexes.',
+        },
         link: { label: 'Thesis repository', href: 'https://github.com/FabioAGC/TCC---BDs-Vetoriais' },
       },
     ],
@@ -269,7 +275,13 @@ const PT: SiteContent = {
         logo: logo('inatel'),
         period: '2026',
         description:
-          'TCC sobre bancos de dados vetoriais. Formação em engenharia de software, sistemas distribuídos, bancos de dados, sistemas operacionais e qualidade de software.',
+          'Formação em engenharia de software, sistemas distribuídos, bancos de dados, sistemas operacionais e qualidade de software.',
+        highlight: {
+          label: 'TCC',
+          title: 'Bancos Relacionais Adaptados vs Bancos Vetoriais Nativos',
+          summary:
+            'Comparação experimental entre bancos adaptados para busca vetorial (PostgreSQL + pgvector, Cassandra 5.0, Redis + RediSearch) e bancos vetoriais nativos (ChromaDB, Weaviate, Qdrant), medindo qualidade de busca, desempenho, custo operacional e robustez com índices HNSW equivalentes.',
+        },
         link: { label: 'Repositório do TCC', href: 'https://github.com/FabioAGC/TCC---BDs-Vetoriais' },
       },
     ],

@@ -38,6 +38,8 @@ export interface JobExperience {
   logo?: string;
   period: string;
   description: string;
+  /** Optional highlighted piece of work, e.g. a thesis: a label, its title and a short summary. */
+  highlight?: { label: string; title: string; summary: string };
   /** Optional link shown under the description, e.g. a thesis repository. */
   link?: { label: string; href: string };
 }

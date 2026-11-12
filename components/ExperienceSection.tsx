@@ -47,6 +47,13 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ experience }) => 
               </div>
             </div>
             <p className="timeline__description">{job.description}</p>
+            {job.highlight && (
+              <div className="highlight">
+                <p className="highlight__label">{job.highlight.label}</p>
+                <p className="highlight__title">{job.highlight.title}</p>
+                <p className="highlight__summary">{job.highlight.summary}</p>
+              </div>
+            )}
             {job.link && (
               <a className="text-link" href={job.link.href} target="_blank" rel="noopener noreferrer">
                 {job.link.label}
