@@ -1,0 +1,314 @@
+<!-- Source of the diagram thumbnails in public/images/diagram-*.webp.
+     To regenerate: serve the repo root and screenshot this page at 640x400 with device scale 2,
+     once per diagram and language:  ?d=mcp|laudos|visao  &lang=pt|en -->
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --fg: #e8ecf4;
+        --muted: #9a9fab;
+        --faint: #6b707c;
+        --line: rgba(255, 255, 255, 0.22);
+        --accent: #6ee6ff;
+        --ok: #4ac85c;
+        --warn: #e0b84a;
+        --bad: #e0584e;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html,
+      body {
+        width: 640px;
+        height: 400px;
+        overflow: hidden;
+      }
+      body {
+        color: var(--fg);
+        font-family: 'Geist Mono', monospace;
+        /* The site's cell grid. */
+        background:
+          linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px) 0 0 / 12px 17px,
+          linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px) 0 0 / 12px 17px,
+          #000;
+      }
+      .flow {
+        height: 100%;
+        padding: 30px 26px;
+        display: grid;
+        grid-template-columns: 1fr 40px 1.2fr 40px 1fr;
+        align-items: center;
+      }
+      .node {
+        height: 250px;
+        padding: 18px 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        text-align: center;
+        border: 1px solid var(--line);
+        background: rgba(0, 0, 0, 0.72);
+      }
+      .node--main {
+        height: 300px;
+        border-color: var(--accent);
+      }
+      .kicker {
+        font-size: 10.5px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .title {
+        font-family: 'Instrument Serif', serif;
+        font-size: 32px;
+        line-height: 1;
+      }
+      .big {
+        font-family: 'Instrument Serif', serif;
+        font-size: 96px;
+        line-height: 0.82;
+        letter-spacing: -0.02em;
+      }
+      .quote {
+        font-family: 'Instrument Serif', serif;
+        font-style: italic;
+        font-size: 21px;
+        line-height: 1.15;
+      }
+      .note {
+        font-size: 10px;
+        letter-spacing: 0.06em;
+        line-height: 1.5;
+        color: var(--faint);
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+      }
+      .chip {
+        padding: 3px 7px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        font-size: 9.5px;
+        letter-spacing: 0.04em;
+        color: var(--muted);
+      }
+      .arrow {
+        width: 40px;
+        height: 16px;
+      }
+      .arrow path {
+        fill: none;
+        stroke: var(--accent);
+        stroke-width: 1.4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      /* Steps listed inside the main node. */
+      .steps {
+        width: 100%;
+        display: grid;
+        gap: 7px;
+      }
+      .step {
+        display: grid;
+        grid-template-columns: 22px 1fr;
+        align-items: baseline;
+        text-align: left;
+        padding-bottom: 7px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .step:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+      .step b {
+        font-size: 9.5px;
+        font-weight: 500;
+        color: var(--accent);
+      }
+      .step span {
+        font-family: 'Instrument Serif', serif;
+        font-size: 23px;
+        line-height: 1;
+      }
+      /* Verdicts. */
+      .verdicts {
+        width: 100%;
+        display: grid;
+        gap: 9px;
+      }
+      .verdict {
+        padding: 11px 6px;
+        border: 1px solid currentColor;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      /* A sheet of paper. */
+      .doc {
+        width: 74px;
+        height: 96px;
+        padding: 12px 10px;
+        display: grid;
+        align-content: start;
+        gap: 7px;
+        border: 1px solid var(--fg);
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .doc i {
+        height: 2px;
+        background: var(--muted);
+      }
+      .doc i:nth-child(1) {
+        width: 60%;
+        background: var(--fg);
+      }
+      .doc i:nth-child(4) {
+        width: 80%;
+      }
+      .doc i:nth-child(6) {
+        width: 45%;
+      }
+      /* The camera's view of the line. */
+      .frame {
+        position: relative;
+        width: 100%;
+        height: 132px;
+        border: 1px solid var(--fg);
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .frame svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .meter {
+        width: 100%;
+        height: 70px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flow" id="flow"></div>
+
+    <script>
+      const params = new URLSearchParams(location.search);
+      const lang = params.get('lang') === 'en' ? 'en' : 'pt';
+      const which = params.get('d') || 'mcp';
+      const t = (pt, en) => (lang === 'en' ? en : pt);
+
+      const arrow = (both) =>
+        `<svg class="arrow" viewBox="0 0 40 16"><path d="M5 8h30M29 3l6 5-6 5${both ? 'M11 3L5 8l6 5' : ''}"/></svg>`;
+
+      const diagrams = {
+        // Claude ⇄ MCP server ⇄ AVEVA MES. The server builds one tool per REST operation.
+        mcp: () => `
+          <div class="node">
+            <p class="kicker">Claude</p>
+            <p class="quote">${t('“Quais ordens estão em produção agora?”', '“Which jobs are running right now?”')}</p>
+            <p class="note">${t('pergunta em linguagem natural', 'a question in plain language')}</p>
+          </div>
+          ${arrow(true)}
+          <div class="node node--main">
+            <p class="kicker">${t('Servidor MCP', 'MCP server')}</p>
+            <p class="big">252</p>
+            <p class="kicker" style="color: var(--fg)">${t('ferramentas', 'tools')}</p>
+            <div class="chips">
+              <span class="chip">Jobs</span><span class="chip">WO</span><span class="chip">Lot</span>
+              <span class="chip">Production</span><span class="chip">OeeExec</span><span class="chip">Sample</span>
+            </div>
+            <p class="note">${t('geradas do OpenAPI do MES', 'generated from the MES OpenAPI')}</p>
+          </div>
+          ${arrow(true)}
+          <div class="node">
+            <p class="kicker">${t('Chão de fábrica', 'Shop floor')}</p>
+            <p class="title">AVEVA MES</p>
+            <p class="note">API REST · OAuth</p>
+          </div>`,
+
+        // Supplier report → OCR, requirements, yes/no questions → verdict.
+        laudos: () => `
+          <div class="node">
+            <p class="kicker">${t('Laudo do fornecedor', 'Supplier report')}</p>
+            <div class="doc"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <p class="note">${t('PDF ou digitalizado', 'PDF or scanned')}</p>
+          </div>
+          ${arrow(false)}
+          <div class="node node--main">
+            <p class="kicker">${t('Validação', 'Validation')}</p>
+            <div class="steps">
+              <div class="step"><b>01</b><span>OCR</span></div>
+              <div class="step"><b>02</b><span>${t('Requisitos do guideline', 'Guideline requirements')}</span></div>
+              <div class="step"><b>03</b><span>${t('Perguntas sim / não', 'Yes / no questions')}</span></div>
+              <div class="step"><b>04</b><span>${t('Verificação dupla', 'Double check')}</span></div>
+            </div>
+          </div>
+          ${arrow(false)}
+          <div class="node">
+            <p class="kicker">${t('Veredito', 'Verdict')}</p>
+            <div class="verdicts">
+              <p class="verdict" style="color: var(--ok)">${t('Aprovado', 'Approved')}</p>
+              <p class="verdict" style="color: var(--warn)">${t('Revisão humana', 'Human review')}</p>
+              <p class="verdict" style="color: var(--bad)">${t('Reprovado', 'Rejected')}</p>
+            </div>
+          </div>`,
+
+        // Camera on the line → vision model → supervisory system.
+        visao: () => `
+          <div class="node">
+            <p class="kicker">${t('Câmera na linha', 'Camera on the line')}</p>
+            <div class="frame">
+              <svg viewBox="0 0 150 132" fill="none">
+                <g stroke="#9a9fab" stroke-width="1.1">
+                  <ellipse cx="34" cy="34" rx="20" ry="14" transform="rotate(-18 34 34)"/>
+                  <ellipse cx="104" cy="30" rx="22" ry="15" transform="rotate(12 104 30)"/>
+                  <ellipse cx="66" cy="74" rx="24" ry="16" transform="rotate(-6 66 74)"/>
+                  <ellipse cx="122" cy="96" rx="19" ry="13" transform="rotate(24 122 96)"/>
+                  <ellipse cx="26" cy="106" rx="18" ry="13" transform="rotate(10 26 106)"/>
+                </g>
+                <g stroke="#6ee6ff" stroke-width="1.2">
+                  <rect x="10" y="16" width="48" height="36"/><rect x="78" y="11" width="52" height="38"/>
+                  <rect x="100" y="80" width="44" height="33"/><rect x="5" y="90" width="42" height="32"/>
+                </g>
+                <rect x="38" y="54" width="56" height="40" stroke="#e0b84a" stroke-width="1.4"/>
+              </svg>
+            </div>
+          </div>
+          ${arrow(false)}
+          <div class="node node--main">
+            <p class="kicker">${t('Visão computacional', 'Computer vision')}</p>
+            <p class="title">${t('Modelo de detecção', 'Detection model')}</p>
+            <p class="note">${t('cada batata localizada<br>e avaliada em tempo real', 'every potato located<br>and assessed in real time')}</p>
+          </div>
+          ${arrow(false)}
+          <div class="node">
+            <p class="kicker">${t('Supervisório', 'Supervisory system')}</p>
+            <svg class="meter" viewBox="0 0 120 70" fill="none">
+              <path d="M2 56h116" stroke="rgba(255,255,255,.2)"/>
+              <path d="M2 44l14-6 14 4 14-12 14 5 14-10 14 9 14-15 16 4" stroke="#6ee6ff" stroke-width="1.5" stroke-linejoin="round"/>
+              <circle cx="102" cy="19" r="3.5" fill="#e0b84a"/>
+            </svg>
+            <p class="note">${t('indicadores e alertas', 'indicators and alerts')}</p>
+          </div>`,
+      };
+
+      document.getElementById('flow').innerHTML = (diagrams[which] || diagrams.mcp)();
+    </script>
+  </body>
+</html>
