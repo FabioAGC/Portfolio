@@ -116,7 +116,6 @@ const EN: SiteContent = {
       id: 8,
       title: 'Report Checker',
       description: 'A tool that checks technical reports automatically and flags inconsistencies for review.',
-      link: 'https://github.com/FabioAGC/OCR',
       tags: ['Automation', 'AI'],
     },
     {
@@ -299,7 +298,6 @@ const PT: SiteContent = {
       id: 8,
       title: 'Checador de Laudos',
       description: 'Ferramenta que confere laudos técnicos automaticamente e aponta inconsistências para revisão.',
-      link: 'https://github.com/FabioAGC/OCR',
       tags: ['Automação', 'IA'],
     },
     {
