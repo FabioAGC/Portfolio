@@ -1,6 +1,6 @@
 <!-- Source of the diagram thumbnails in public/images/diagram-*.webp.
      To regenerate: serve the repo root and screenshot this page at 640x400 with device scale 2,
-     once per diagram and language:  ?d=mcp|laudos|visao  &lang=pt|en -->
+     once per diagram and language:  ?d=mcp|laudos|visao|dashboard  &lang=pt|en -->
 <!doctype html>
 <html>
   <head>
@@ -305,6 +305,41 @@
               <circle cx="102" cy="19" r="3.5" fill="#e0b84a"/>
             </svg>
             <p class="note">${t('indicadores e alertas', 'indicators and alerts')}</p>
+          </div>`,
+
+        // MES database → hourly Python pipeline → Power BI dashboard.
+        dashboard: () => `
+          <div class="node">
+            <p class="kicker">MES</p>
+            <p class="title">SQL Server</p>
+            <p class="note">${t('eventos de utilização<br>dos equipamentos', 'equipment<br>utilization events')}</p>
+          </div>
+          ${arrow(false)}
+          <div class="node node--main">
+            <p class="kicker">${t('Pipeline Python · a cada hora', 'Python pipeline · hourly')}</p>
+            <div class="steps">
+              <div class="step"><b>01</b><span>${t('Extração incremental', 'Incremental extraction')}</span></div>
+              <div class="step"><b>02</b><span>${t('Eventos quebrados por dia', 'Events split by day')}</span></div>
+              <div class="step"><b>03</b><span>${t('Parquets mensais', 'Monthly Parquet files')}</span></div>
+            </div>
+          </div>
+          ${arrow(false)}
+          <div class="node">
+            <p class="kicker">Power BI</p>
+            <svg class="meter" viewBox="0 0 120 70" fill="none">
+              <path d="M2 64h116" stroke="rgba(255,255,255,.2)"/>
+              <g fill="#6ee6ff">
+                <rect x="8" y="26" width="14" height="38"/><rect x="30" y="18" width="14" height="46"/>
+                <rect x="52" y="32" width="14" height="32"/><rect x="74" y="14" width="14" height="50"/>
+                <rect x="96" y="24" width="14" height="40"/>
+              </g>
+              <g fill="#e0b84a">
+                <rect x="8" y="14" width="14" height="10"/><rect x="30" y="10" width="14" height="6"/>
+                <rect x="52" y="12" width="14" height="18"/><rect x="74" y="8" width="14" height="4"/>
+                <rect x="96" y="12" width="14" height="10"/>
+              </g>
+            </svg>
+            <p class="note">${t('rodando e paradas,<br>por equipamento e turno', 'running and stops,<br>by equipment and shift')}</p>
           </div>`,
       };
 

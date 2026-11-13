@@ -128,6 +128,14 @@ const EN: SiteContent = {
       tags: ['Computer Vision', 'AI'],
     },
     {
+      id: 10,
+      title: 'MES Dashboard',
+      description:
+        'A Python pipeline that keeps a Power BI dashboard of the MES always up to date: every hour it extracts equipment utilization events from SQL Server (running time, stops and their reasons), stores them in monthly Parquet files and refreshes the SharePoint spreadsheet, with no manual work.',
+      imageUrl: img('diagram-dashboard-en'),
+      tags: ['Python', 'SQL Server', 'Parquet', 'Power BI', 'SharePoint'],
+    },
+    {
       id: 1,
       title: 'GymTrack',
       description:
@@ -311,6 +319,14 @@ const PT: SiteContent = {
       description: 'Sistema de visão computacional que monitora a linha de produção de batata.',
       imageUrl: img('diagram-visao-pt'),
       tags: ['Visão Computacional', 'IA'],
+    },
+    {
+      id: 10,
+      title: 'Dashboard MES',
+      description:
+        'Pipeline em Python que mantém um dashboard de Power BI do MES sempre atualizado: a cada hora extrai do SQL Server os eventos de utilização dos equipamentos (tempo rodando, paradas e seus motivos), grava em arquivos Parquet mensais e atualiza a planilha do SharePoint, sem trabalho manual.',
+      imageUrl: img('diagram-dashboard-pt'),
+      tags: ['Python', 'SQL Server', 'Parquet', 'Power BI', 'SharePoint'],
     },
     {
       id: 1,
