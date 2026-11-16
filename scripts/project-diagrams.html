@@ -1,6 +1,6 @@
 <!-- Source of the diagram thumbnails in public/images/diagram-*.webp.
      To regenerate: serve the repo root and screenshot this page at 640x400 with device scale 2,
-     once per diagram and language:  ?d=mcp|laudos|visao|dashboard  &lang=pt|en -->
+     once per diagram and language:  ?d=mcp|laudos|visao|dashboard|lora  &lang=pt|en -->
 <!doctype html>
 <html>
   <head>
@@ -198,6 +198,15 @@
         width: 100%;
         height: 100%;
       }
+      .json {
+        width: 100%;
+        font-family: 'Geist Mono', monospace;
+        font-size: 9.5px;
+        line-height: 1.5;
+        text-align: left;
+        color: var(--accent);
+        white-space: pre;
+      }
       .meter {
         width: 100%;
         height: 70px;
@@ -340,6 +349,35 @@
               </g>
             </svg>
             <p class="note">${t('rodando e paradas,<br>por equipamento e turno', 'running and stops,<br>by equipment and shift')}</p>
+          </div>`,
+
+        // Informal delivery message → small model fine-tuned with LoRA on CPU → structured order.
+        lora: () => `
+          <div class="node">
+            <p class="kicker">${t('Mensagem do cliente', 'Customer message')}</p>
+            <p class="quote">“me ve 2 xburguer sem cebola e uma coca zero, pago no pix”</p>
+            <p class="note">${t('português informal', 'informal Portuguese')}</p>
+          </div>
+          ${arrow(false)}
+          <div class="node node--main">
+            <p class="kicker">${t('Qwen2.5 0,5B + LoRA', 'Qwen2.5 0.5B + LoRA')}</p>
+            <p class="big">85%</p>
+            <p class="kicker" style="color: var(--fg)">${t('pedidos exatos', 'exact orders')}</p>
+            <p class="note">${t('treinado em CPU, sem GPU<br>LLM grande via API: 90%<br>com 15× mais tokens de prompt', 'trained on CPU, no GPU<br>large LLM via API: 90%<br>with 15× more prompt tokens')}</p>
+          </div>
+          ${arrow(false)}
+          <div class="node">
+            <p class="kicker">${t('Pedido estruturado', 'Structured order')}</p>
+            <pre class="json">{
+  "itens": [
+    { "item": "x-burguer",
+      "qtd": 2,
+      "obs": ["sem cebola"] },
+    { "item": "coca-cola zero",
+      "qtd": 1 }
+  ],
+  "pagamento": "pix"
+}</pre>
           </div>`,
       };
 

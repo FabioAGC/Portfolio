@@ -54,13 +54,26 @@ const App: React.FC = () => {
         </Section>
 
         <Section id="projects" index="05" label={t.headers.projects}>
-          <div className="projects">
-            {projects.map((project, i) => (
-              <RevealOnScroll key={project.id} delay={(i % 3) * 80}>
-                <ProjectCard project={project} index={i} codeLabel={t.headers.viewCode} />
-              </RevealOnScroll>
-            ))}
-          </div>
+          {(['professional', 'academic'] as const).map((kind) => {
+            const group = projects.filter((project) => project.kind === kind);
+            return (
+              <div key={kind} className="project-group">
+                <RevealOnScroll>
+                  <h3 className="project-group__title">
+                    {t.headers[kind]}
+                    <span className="project-group__count">{String(group.length).padStart(2, '0')}</span>
+                  </h3>
+                </RevealOnScroll>
+                <div className="projects">
+                  {group.map((project, i) => (
+                    <RevealOnScroll key={project.id} delay={(i % 3) * 80}>
+                      <ProjectCard project={project} index={i} codeLabel={t.headers.viewCode} />
+                    </RevealOnScroll>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </Section>
 
         <Section id="contact" index="06" label={t.headers.contact}>

@@ -34,26 +34,16 @@ const EN: SiteContent = {
     title: 'Software Engineer',
     tagline: 'Software engineer focused on data, automation and AI applied to industry.',
     about:
-      "I hold a Bachelor's degree in Software Engineering from the National Institute of Telecommunications (INATEL), and I have hands-on experience with technologies such as 5G, networking, automation, AI, and machine learning. I've always been deeply interested in technology, and I'm currently focusing on learning low-level languages, high-frequency trading systems, and embedded programming.\n\nI graduated in 2026 and plan to pursue a postgraduate degree to specialize further. I'm currently looking for Junior or Mid-level opportunities where I can keep growing and solve real problems with data, automation and AI.\n\nWhen I'm not working, you'll probably find me gaming — a lifelong passion of mine — or reading a book, since I've always been fascinated by classic literature (I even considered studying philosophy at one point!).",
+      "I hold a Bachelor's degree in Software Engineering from the National Institute of Telecommunications (INATEL), and I have hands-on experience with technologies such as 5G, networking, automation, AI, and machine learning. I've always been deeply interested in technology, and I'm currently focused on learning cybersecurity and orchestration.\n\nI graduated in 2026 and plan to pursue a postgraduate degree to specialize further. I'm currently looking for Junior or Mid-level opportunities where I can keep growing and solve real problems with data, automation and AI.\n\nWhen I'm not working, you'll probably find me gaming — a lifelong passion of mine — or reading a book, since I've always been fascinated by classic literature (I even considered studying philosophy at one point!).",
     avatarUrl: AVATAR,
     socials: SOCIALS,
     skills: [
-      { category: 'Frontend', items: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'HTML5/CSS3'] },
-      { category: 'Backend', items: ['C', 'C++', 'PHP', 'Flutter', 'Java', 'Python', 'Node.js', 'Express'] },
-      {
-        category: 'DevOps & Tools',
-        items: ['Git', 'Docker', 'Postman', 'AWS', 'Vercel', 'Jest', 'Excel', 'Power BI', 'CI/CD', 'Linux'],
-      },
-      { category: 'Databases', items: ['PostgreSQL', 'MySQL', 'Firebase', 'Supabase', 'AVEVA', 'SEEQ'] },
-      {
-        category: 'AI & LLMs',
-        items: ['LLMs', 'MCP', 'RAG', 'Embeddings', 'Vector Databases', 'Fine-tuning', 'LoRA', 'AI Agents', 'Prompt Engineering'],
-      },
-      {
-        category: 'Hard Skills',
-        items: ['Data Analysis', 'System Design', 'Network Configuration', 'Cybersecurity', 'KPIs', 'AI', 'Machine Learning'],
-      },
-      { category: 'Soft Skills', items: ['Problem Solving', 'Quick Learner', 'Sociable', 'Good at Teamwork'] },
+      { category: 'Generative AI & LLMs', items: ['LLMs', 'RAG', 'MCP', 'LangChain', 'Agents', 'Prompt eng.', 'OCR', 'Whisper'] },
+      { category: 'Vector Search', items: ['Embeddings', 'HNSW', 'BM25', 'pgvector', 'Qdrant', 'Weaviate', 'ChromaDB', 'RediSearch'] },
+      { category: 'Machine Learning', items: ['Python', 'Scikit-learn', 'Pandas', 'NumPy', 'Computer vision (OpenCV)', 'R'] },
+      { category: 'Software Engineering', items: ['TypeScript', 'Node.js', 'NestJS', 'FastAPI', 'React', 'Docker', 'Git'] },
+      { category: 'Data & Cloud', items: ['Snowflake', 'SQL Server', 'PostgreSQL', 'MySQL', 'MongoDB', 'AWS', 'Parquet', 'ETL'] },
+      { category: 'Automation & BI', items: ['n8n', 'Apps Script', 'Power BI', 'Looker Studio', 'Seeq', 'Aveva Historian / MES'] },
     ],
     experience: [
       {
@@ -105,12 +95,23 @@ const EN: SiteContent = {
   },
   projects: [
     {
+      id: 11,
+      title: 'LoraFood',
+      description:
+        'A small language model (Qwen2.5 0.5B) fine-tuned with LoRA on a CPU to turn informal delivery messages in Portuguese into structured orders. It gets 85% of orders exactly right, close to a large LLM via API (90%), with 15 times fewer prompt tokens and no GPU.',
+      imageUrl: img('diagram-lora-en'),
+      link: 'https://github.com/FabioAGC/Lora',
+      kind: 'professional',
+      tags: ['LoRA', 'Fine-tuning', 'Qwen2.5', 'PyTorch', 'Synthetic data'],
+    },
+    {
       id: 7,
       title: 'MCP for AVEVA MES',
       description:
         'An MCP server that connects AI assistants to AVEVA MES, so production data can be queried in natural language.',
       imageUrl: img('diagram-mcp-en'),
       link: 'https://github.com/FabioAGC/MCP-MES',
+      kind: 'professional',
       tags: ['MCP', 'AVEVA MES', 'AI'],
     },
     {
@@ -118,6 +119,7 @@ const EN: SiteContent = {
       title: 'Report Checker',
       description: 'A tool that checks technical reports automatically and flags inconsistencies for review.',
       imageUrl: img('diagram-laudos-en'),
+      kind: 'professional',
       tags: ['Automation', 'AI'],
     },
     {
@@ -125,6 +127,7 @@ const EN: SiteContent = {
       title: 'Potato Line Computer Vision',
       description: 'A computer vision system that monitors the potato production line.',
       imageUrl: img('diagram-visao-en'),
+      kind: 'professional',
       tags: ['Computer Vision', 'AI'],
     },
     {
@@ -133,6 +136,7 @@ const EN: SiteContent = {
       description:
         'A Python pipeline that keeps a Power BI dashboard of the MES always up to date: every hour it extracts equipment utilization events from SQL Server (running time, stops and their reasons), stores them in monthly Parquet files and refreshes the SharePoint spreadsheet, with no manual work.',
       imageUrl: img('diagram-dashboard-en'),
+      kind: 'professional',
       tags: ['Python', 'SQL Server', 'Parquet', 'Power BI', 'SharePoint'],
     },
     {
@@ -142,6 +146,7 @@ const EN: SiteContent = {
         'A platform for building and recommending gym workouts, featuring progress dashboards and AI-powered recommendations for personalized training routines for each member.',
       imageUrl: PROJECT_IMGS.gymtrack,
       link: 'https://github.com/FabioAGC/GymTrack',
+      kind: 'academic',
       tags: ['Next.js', 'TypeScript', 'SQLite', 'Tailwind', 'Jenkins', 'Jest'],
     },
     {
@@ -152,6 +157,7 @@ const EN: SiteContent = {
       imageUrl: PROJECT_IMGS.speechai,
       imagePosition: 'center',
       link: 'https://github.com/FabioAGC/SpeechAI',
+      kind: 'academic',
       tags: ['Nest.js', 'OpenAI API', 'n8n', 'Postgres', 'React', 'Vite', 'Prisma'],
     },
     {
@@ -160,6 +166,7 @@ const EN: SiteContent = {
       description:
         'A system that monitors all light and water sensors in smart homes and analyzes consumption using AI to ensure everything is operating correctly.',
       imageUrl: PROJECT_IMGS.ecosense,
+      kind: 'academic',
       tags: ['React', 'Python', 'TensorFlow'],
     },
     {
@@ -168,6 +175,7 @@ const EN: SiteContent = {
       description:
         'An app designed for Inatel students to redeem prizes at the cafeteria and library based on their grades and attendance in classes and lectures.',
       imageUrl: PROJECT_IMGS.inatelRewards,
+      kind: 'academic',
       tags: ['Flutter', 'Firebase'],
     },
     {
@@ -176,6 +184,7 @@ const EN: SiteContent = {
       description:
         'A social network for art collectives, where artists gather in groups, share their work and interact with the community. It features category-based ratings, a personalized feed and a built-in bidding system that connects creators and collectors.',
       imageUrl: PROJECT_IMGS.basquiart,
+      kind: 'academic',
       tags: ['JWT', 'bcrypt', 'Pytest', 'Playwright', 'Accessibility'],
     },
     {
@@ -185,6 +194,7 @@ const EN: SiteContent = {
         'A web application for managing reservations of institutional resources in schools. With enrollment-based login and a REST API, it handles rooms, labs and equipment, automatically prevents scheduling conflicts and centralizes every reservation in a single dashboard.',
       imageUrl: PROJECT_IMGS.smartreserve,
       link: 'https://github.com/FabioAGC/C14',
+      kind: 'academic',
       tags: ['REST API', 'Jest', 'Playwright', 'Jenkins'],
     },
   ],
@@ -210,6 +220,8 @@ const EN: SiteContent = {
       experience: 'Experience',
       education: 'Education',
       projects: 'Selected projects',
+      professional: 'Professional',
+      academic: 'University',
       viewCode: 'View code',
       contact: 'Contact',
       contactTitle: "Let's talk.",
@@ -224,29 +236,16 @@ const PT: SiteContent = {
     title: 'Engenheiro de Software',
     tagline: 'Engenheiro de software focado em dados, automação e IA aplicada à indústria.',
     about:
-      'Sou bacharel em Engenharia de Software pelo Instituto Nacional de Telecomunicações (INATEL), tenho experiência profissional com análise de dados e automação e possuo prática em tecnologias como 5G, redes, IA e machine learning. Sempre fui muito interessado em tecnologia e atualmente estou focado em aprender linguagens de baixo nível, HFT e embarcados.\n\nConcluí a graduação em 2026 e pretendo fazer uma pós-graduação na área para me especializar ainda mais. No momento, busco oportunidades de nível Júnior ou Pleno, onde eu possa continuar crescendo e resolver problemas reais com dados, automação e IA.\n\nQuando não estou trabalhando, provavelmente estou jogando, já que essa sempre foi uma paixão minha, ou então lendo algum livro, pois os clássicos da literatura sempre me interessaram (já até pensei em cursar Psiquiatria ou Filosofia).',
+      'Sou bacharel em Engenharia de Software pelo Instituto Nacional de Telecomunicações (INATEL), tenho experiência profissional com análise de dados e automação e possuo prática em tecnologias como 5G, redes, IA e machine learning. Sempre fui muito interessado em tecnologia e atualmente estou focado em aprender cibersegurança e orquestração.\n\nConcluí a graduação em 2026 e pretendo fazer uma pós-graduação na área para me especializar ainda mais. No momento, busco oportunidades de nível Júnior ou Pleno, onde eu possa continuar crescendo e resolver problemas reais com dados, automação e IA.\n\nQuando não estou trabalhando, provavelmente estou jogando, já que essa sempre foi uma paixão minha, ou então lendo algum livro, pois os clássicos da literatura sempre me interessaram (já até pensei em cursar Psiquiatria ou Filosofia).',
     avatarUrl: AVATAR,
     socials: SOCIALS,
     skills: [
-      { category: 'Frontend', items: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'HTML5/CSS3'] },
-      { category: 'Backend', items: ['C', 'C++', 'PHP', 'Flutter', 'Java', 'Python', 'Node.js', 'Express'] },
-      {
-        category: 'DevOps & Ferramentas',
-        items: ['Git', 'Docker', 'Postman', 'AWS', 'Vercel', 'Jest', 'Excel', 'Power BI', 'CI/CD', 'Linux'],
-      },
-      { category: 'Bancos de Dados', items: ['PostgreSQL', 'MySQL', 'Firebase', 'Supabase', 'AVEVA', 'SEEQ'] },
-      {
-        category: 'IA & LLMs',
-        items: ['LLMs', 'MCP', 'RAG', 'Embeddings', 'Bancos Vetoriais', 'Fine-tuning', 'LoRA', 'Agentes de IA', 'Engenharia de Prompt'],
-      },
-      {
-        category: 'Competências Técnicas',
-        items: ['Análise de Dados', 'Design de Sistemas', 'Configuração de Redes', 'Cibersegurança', 'KPIs', 'IA', 'Machine Learning'],
-      },
-      {
-        category: 'Competências Comportamentais',
-        items: ['Resolução de Problemas', 'Aprendizado Rápido', 'Sociável', 'Trabalho em Equipe'],
-      },
+      { category: 'IA Generativa e LLMs', items: ['LLMs', 'RAG', 'MCP', 'LangChain', 'Agentes', 'Prompt eng.', 'OCR', 'Whisper'] },
+      { category: 'Busca Vetorial', items: ['Embeddings', 'HNSW', 'BM25', 'pgvector', 'Qdrant', 'Weaviate', 'ChromaDB', 'RediSearch'] },
+      { category: 'Machine Learning', items: ['Python', 'Scikit-learn', 'Pandas', 'NumPy', 'Visão computacional (OpenCV)', 'R'] },
+      { category: 'Engenharia de Software', items: ['TypeScript', 'Node.js', 'NestJS', 'FastAPI', 'React', 'Docker', 'Git'] },
+      { category: 'Dados e Cloud', items: ['Snowflake', 'SQL Server', 'PostgreSQL', 'MySQL', 'MongoDB', 'AWS', 'Parquet', 'ETL'] },
+      { category: 'Automação e BI', items: ['n8n', 'Apps Script', 'Power BI', 'Looker Studio', 'Seeq', 'Aveva Historian / MES'] },
     ],
     experience: [
       {
@@ -298,12 +297,23 @@ const PT: SiteContent = {
   },
   projects: [
     {
+      id: 11,
+      title: 'LoraFood',
+      description:
+        'Modelo de linguagem pequeno (Qwen2.5 0,5B) ajustado com LoRA em CPU para transformar mensagens informais de delivery em pedidos estruturados. Acerta 85% dos pedidos por completo, perto de um LLM grande via API (90%), com 15 vezes menos tokens de prompt e sem GPU.',
+      imageUrl: img('diagram-lora-pt'),
+      link: 'https://github.com/FabioAGC/Lora',
+      kind: 'professional',
+      tags: ['LoRA', 'Fine-tuning', 'Qwen2.5', 'PyTorch', 'Dados sintéticos'],
+    },
+    {
       id: 7,
       title: 'MCP para AVEVA MES',
       description:
         'Servidor MCP que conecta assistentes de IA ao AVEVA MES, permitindo consultar dados de produção em linguagem natural.',
       imageUrl: img('diagram-mcp-pt'),
       link: 'https://github.com/FabioAGC/MCP-MES',
+      kind: 'professional',
       tags: ['MCP', 'AVEVA MES', 'IA'],
     },
     {
@@ -311,6 +321,7 @@ const PT: SiteContent = {
       title: 'Checador de Laudos',
       description: 'Ferramenta que confere laudos técnicos automaticamente e aponta inconsistências para revisão.',
       imageUrl: img('diagram-laudos-pt'),
+      kind: 'professional',
       tags: ['Automação', 'IA'],
     },
     {
@@ -318,6 +329,7 @@ const PT: SiteContent = {
       title: 'Visão Computacional na Linha de Batata',
       description: 'Sistema de visão computacional que monitora a linha de produção de batata.',
       imageUrl: img('diagram-visao-pt'),
+      kind: 'professional',
       tags: ['Visão Computacional', 'IA'],
     },
     {
@@ -326,6 +338,7 @@ const PT: SiteContent = {
       description:
         'Pipeline em Python que mantém um dashboard de Power BI do MES sempre atualizado: a cada hora extrai do SQL Server os eventos de utilização dos equipamentos (tempo rodando, paradas e seus motivos), grava em arquivos Parquet mensais e atualiza a planilha do SharePoint, sem trabalho manual.',
       imageUrl: img('diagram-dashboard-pt'),
+      kind: 'professional',
       tags: ['Python', 'SQL Server', 'Parquet', 'Power BI', 'SharePoint'],
     },
     {
@@ -335,6 +348,7 @@ const PT: SiteContent = {
         'Plataforma de construção e recomendação de treinos de academia, com dashboards de progresso e IA para recomendação de séries para cada membro.',
       imageUrl: PROJECT_IMGS.gymtrack,
       link: 'https://github.com/FabioAGC/GymTrack',
+      kind: 'academic',
       tags: ['Next.js', 'TypeScript', 'SQLite', 'Tailwind', 'Jenkins', 'Jest'],
     },
     {
@@ -345,6 +359,7 @@ const PT: SiteContent = {
       imageUrl: PROJECT_IMGS.speechai,
       imagePosition: 'center',
       link: 'https://github.com/FabioAGC/SpeechAI',
+      kind: 'academic',
       tags: ['Nest.js', 'OpenAI API', 'n8n', 'Postgres', 'React', 'Vite', 'Prisma'],
     },
     {
@@ -353,6 +368,7 @@ const PT: SiteContent = {
       description:
         'Sistema que ajuda a visualizar todos os sensores de luz e água de casas inteligentes e analisa o consumo com IA para garantir que está tudo nos conformes.',
       imageUrl: PROJECT_IMGS.ecosense,
+      kind: 'academic',
       tags: ['React', 'Python', 'TensorFlow'],
     },
     {
@@ -361,6 +377,7 @@ const PT: SiteContent = {
       description:
         'Aplicativo feito para os estudantes do Inatel resgatarem prêmios na cantina e na biblioteca com base nas notas e na frequência em aulas e palestras.',
       imageUrl: PROJECT_IMGS.inatelRewards,
+      kind: 'academic',
       tags: ['Flutter', 'Firebase'],
     },
     {
@@ -369,6 +386,7 @@ const PT: SiteContent = {
       description:
         'Rede social voltada para coletivos de arte, onde artistas se reúnem em grupos, compartilham obras e interagem com a comunidade. Conta com avaliação por categorias, feed personalizado e um módulo de lances integrado que conecta criadores e colecionadores.',
       imageUrl: PROJECT_IMGS.basquiart,
+      kind: 'academic',
       tags: ['JWT', 'bcrypt', 'Pytest', 'Playwright', 'Acessibilidade'],
     },
     {
@@ -378,6 +396,7 @@ const PT: SiteContent = {
         'Aplicação web para gerenciamento de reservas de recursos institucionais em ambientes educacionais. Com autenticação por matrícula e uma API REST, controla salas, laboratórios e equipamentos, previne conflitos de horário automaticamente e centraliza todas as reservas em um único painel.',
       imageUrl: PROJECT_IMGS.smartreserve,
       link: 'https://github.com/FabioAGC/C14',
+      kind: 'academic',
       tags: ['API REST', 'Jest', 'Playwright', 'Jenkins'],
     },
   ],
@@ -403,6 +422,8 @@ const PT: SiteContent = {
       experience: 'Experiência',
       education: 'Formação',
       projects: 'Projetos selecionados',
+      professional: 'Profissionais',
+      academic: 'Faculdade',
       viewCode: 'Ver código',
       contact: 'Contato',
       contactTitle: 'Vamos conversar.',

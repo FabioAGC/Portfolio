@@ -10,6 +10,8 @@ export interface Project {
   imagePosition?: string;
   tags: string[];
   link?: string;
+  /** Which group the project is listed under. */
+  kind: 'professional' | 'academic';
 }
 
 export interface SocialLinks {
@@ -79,6 +81,8 @@ export interface Translations {
     experience: string;
     education: string;
     projects: string;
+    professional: string;
+    academic: string;
     viewCode: string;
     contact: string;
     contactTitle: string;
